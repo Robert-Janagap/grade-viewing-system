@@ -1,0 +1,164 @@
+
+.features ul{
+	list-style: none;
+	text-align: center;
+}
+.feature_title{
+	margin-top:14px;
+font-weight: bold;
+font-family: oxygen;
+font-size: 1.1rem;
+}
+.feature_text{
+	margin-top:4px;
+}
+section{
+	margin: 100px 0;
+	text-align:center;
+}
+.input_field input,
+.input_field textarea
+{
+	width: 100%;
+}
+.input_field textarea{
+	resize: none;
+	height: 200px;
+}
+.contact_us form{
+	text-align: left;
+}
+.form_guide{
+	margin-bottom: 8px;
+color: rgb(65, 65, 65);
+font-variant: small-caps;
+}
+.contact_us_text{
+	margin-bottom: 52px;
+}
+.sub_banner{
+	width: 70%;
+margin: 0 auto;
+margin-bottom: 100px;
+}
+footer{
+	width: 100%;
+	background: #000;
+	color: #fff;
+	ul{
+		list-style: none;
+		display: inline-block;
+		margin-bottom: 0px;
+		float: right;
+		li{
+			display: inline-block;
+			margin-left: 15px;
+			margin-bottom: 0;
+		}
+		li img{
+			width: 32px;
+			height: 32px;
+			vertical-align: middle;
+		}
+	}
+}
+.footer_content{
+	height: 80px;
+	line-height: 80px;
+}
+.logIn_btn{
+	background: #00c0ff;
+padding: 6px 13px;
+border-radius: 6px;
+cursor: pointer;
+	color:#fff;
+	&:hover{
+		color: #fff;
+	}
+}
+.modal{
+	visibility: hidden;
+	
+	&.show{
+		visibility: visible;
+		transition: all .3s ease-in-out;
+	}
+}
+.logIn_form{
+	position: fixed;
+	background-color: rgba(0,0,0,0.4);
+	bottom: 0px;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	input{
+		width: 100%;
+	}
+	form{
+		background: #fff;
+		padding: 20px;
+		border-radius: 4px;
+		position: relative;
+		.btn_close{
+			position: absolute;
+			top: -15px;
+			right: -15px;
+			background-color: rgb(186, 5, 5);
+			color: rgb(255, 255, 255);
+			padding: 4px 10px;
+			border-radius: 50%;
+			font-weight: bold;
+			cursor: pointer;
+		}
+	}
+	button{
+		background-color:#00c0ff;
+		border: 0px none;
+		color: rgb(255, 255, 255);
+		font-size: 14px;
+		margin-right: 8px;
+	}
+	a{
+		text-decoration: underline;
+	}
+	p{
+		margin-top: 5px;
+		font-size: 14px;
+	}
+}
+.logIn_show{
+	display: block
+}
+.signUp{
+	width: 28%;
+	display: none;
+	&_toggle{
+		display: block;
+	}
+	h4{
+		margin: 0;
+		border-bottom: 1px solid rgb(0, 228, 255);
+text-transform: uppercase;
+margin-bottom: 14px;
+	}
+	input[type="checkbox"]{
+		width: 0;
+	}
+	.type_label{
+		display: inline-block;
+		margin-right: 15px;
+	}
+}
+.errMsg{
+	display: block;
+padding: 9px 7px;
+background: rgb(224, 8, 0) none repeat scroll 0% 0%;
+color: rgb(255, 255, 255);
+font-size: 14px;
+font-variant: small-caps;
+font-weight: bold;
+margin-bottom: 10px;
+}

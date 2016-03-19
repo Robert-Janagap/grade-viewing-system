@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        title Teacher Name
+    body.client_bg
+        header.blue_header.u-cf
+            .container
+                .navigation.u-cf(ng-controller="navCtrl")
+                    a(href="#/").logo Online Grading System
+                    nav 
+                        ul
+                            li
+                                a(href="" ng-click="goBackToClassList()") Classes
+                            li
+                                a(href="" ng-click="goToAccountSettings()") Account
+                            li
+                                a(href="" ng-click="logOut()") Log-out
+        .row
+            .sidebar_nav.two.columns
+                ul
+                    li
+                        a(href="" ng-click="viewAttendance()") Attendance
+                            img(src="/img/icn_att.png", alt="")
+                    li
+                        a(href="" ng-click="viewStudents()") Students
+                            img(src="/img/icn_students.png", alt="")
+                    li
+                        a(href="" ng-click="viewQuiz()") Quiz
+                            img(src="/img/icn_quiz.png", alt="")
+                    li
+                        a(href="" ng-click="viewAssignments()") Assignments
+                            img(src="/img/icn_assign.png", alt="")
+                    li
+                        a(href="" ng-click="viewLab()") Laboratory
+                            img(src="/img/icn_lab.png", alt="")
+                    li
+                        a(href="" ng-click="viewExam()") Exam
+                            img(src="/img/icn_exam.png", alt="")
+                    li
+                        a(href="" ng-click="viewSettings()") Settings
+                            img(src="/img/icn_settings.png", alt="")
+            .overlay(ng-show="openOverlay")
+                .create_class
+                    h3 Create New Class
+                    form
+                        .row(ng-show="creatingClass")
+                            h4.title_border Class Info
+                            .input_group.row
+                                label(for="Class name").three.columns Class Name
+                                input(type="text" ng-model="newClass.class_name").five.columns  
+                                span.four.columns Ex. Algebra 3-A
+                            .input_group.row
+                                label(for="School Year").three.columns School Year
+                                .five.columns
+                                    select(ng-model="newClass.year") 
+                                        option(value="2016-2017" selected) 2016-2017 
+                            button(ng-click="openGradingScale()").btn_green.btn_hover Next
+                            a(href="" ng-click="closeCreateClass()").btn_cancel cancel
+                        .row.setGradingScale(ng-show="gradingScale")
+                            h4.title_border Grading Scale
+                            .row
+                                .input_group.four.columns
+                                    label(for="attendance") Attendance
+                                    input(type="number" min="1" max="100" ng-model="newClass.attendance")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Quiz") Quiz
+                                    input(type="number" min="1" max="100" ng-model="newClass.quiz")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Assignments") Assignments
+                                    input(type="number" min="1" max="100" ng-model="newClass.assignments")
+                                    span  %
+                            .row
+                                .input_group.four.columns
+                                    label(for="Quiz") Laboratory
+                                    input(type="number" min="1" max="100" ng-model="newClass.lab")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Quiz") Exam
+                                    input(type="number" min="1" max="100" ng-model="newClass.exam")
+                                    span  %
+                            button(ng-click="createNewClass(newClass)").pull-right.u-cf Submit
+                            a(href="" ng-click="closeGradingScale()").btn_cancel back
+            .content.ten.columns.content_view
+                .class_list.user_view(ng-show="classList")
+                    h2.content_title Your Classes
+                    .btn_2(ng-click="openCreateClass()") Create New Class
+                    table
+                        thead
+                            tr
+                                th.th_col1 Class 
+                                //<img src="/img/icn_student_count.png">
+                                th.th_col2 Class Code
+                        tbody
+                            tr(ng-repeat="teacherClass in classList")
+                                td <img src="/img/icn_book.png"> <a href="" ng-click="selectClass(teacherClass)">{{teacherClass.class_name}}</a>
+                                // <a href="" class="student_count">{{teacherClass.sCount}}</a>
+                                td {{teacherClass.class_id}}
+                //student class list
+                .user_view(ng-show="teacherClass")
+                    ul.breadcrumb
+                        li.active
+                            a(href="") {{classInfo.class_name}}
+                    h2.content_title {{classInfo.class_name}}
+                    tabselect.content_view_tabs
+                        li.active Prelim
+                        li Midterm
+                        li Final
+                    .tab.u-cf
+                        h4 Grade
+                        table
+                            thead
+                                tr
+                                    th Name
+                                    th Attendance
+                                    th Quiz
+                                    th Assignments
+                                    th Laboratory
+                                    th Exam
+                                    th Grade
+                            tbody
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td {{students.totalAttendance}} % 
+                                    td {{students.totalQuiz}} %
+                                    td {{students.totalAssignments}} %
+                                    td {{students.totalLab}} %
+                                    td {{students.totalExam}} %
+                                    //- td {{students.grade}} %
+                                    td {{grade(students.totalQuiz, students.totalAttendance, students.totalAssignments, students.totalLab, students.totalExam)}} %
+                //student attendance
+                .user_view(ng-show="showAttendance")
+                    ul.breadcrumb
+                        li
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
+                        li.active
+                            a(href="") Attendance
+                    h2.content_title Attendance
+                    ul.content_view_tabs
+                        li.active Prelim
+                        li Midterm
+                        li Final
+                    .tab
+                        h4 {{dateToday}} - {{dayToday}}
+                        .tab_top_content
+                            .btn_2(ng-click="newAttendance()") Add Column
+                            span.total_days 
+                            //- Total: <span>5</span>
+                            .color_guide
+                                span
+                                    span.clr_black 
+                                    | Good
+                                span
+                                    span.clr_yellow 
+                                    | Warning
+                                span
+                                    span.clr_drop 
+                                    | Drop
+                        table.margin_top.attendance_header
+                            thead
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
+                                    th Name
+                                    th(ng-repeat = "actDate in students.attendance_record")
+                                        a {{actDate.activity_date}}
+                            tbody
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td(ng-repeat = "scores in students.attendance_record")
+                                        a {{scores.score}}
+                        .today_attendance(ng-show="studentAttendance")
+                            .today_attendance_inner.u-cf
+                                span {{dateToday}}
+                                h4.title_border Attendance
+                                ul
+                                    li.attendance_check 
+                                        span Present
+                                        span Not Present
+                                    li(ng-repeat="students in studentClassList") 
+                                        label {{students.student_name}}
+                                            input(type="checkbox" ng-model="students.checkAttendance" ng-change="saveAttendance(students, dateToday)")
+                                            input(type="checkbox" ng-model="students.uncheckAttendance" ng-change="saveAttendance(students, dateToday)")
+                                    .btn_2.pull-right(ng-click="closeAttendance()") Done
+                //student list
+                .user_view(ng-show="studentsList")
+                    ul.breadcrumb
+                        li
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
+                        li.active
+                            a(href="") Students
+
+                    h2.content_title Student List
+                    .tab.student_tab
+                        h4 {{classInfo.class_name}}
+                        table.margin_top
+                            thead
+                                tr
+                                    th Name
+                                    th Student ID
+                                    th 
+                                        a(href="")
+                                            img(src="/img/png_settings.png", alt="")
+                            tbody
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td {{students.student_id}}
+                                    td 
+                                        a(href="")
+                                            
+                                            img(src="/img/png_settings.png", alt="")
+                //student quiz
+                .user_view(ng-show="studentQuiz")
+                    ul.breadcrumb
+                        li
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
+                        li.active
+                            a(href="") Quiz
+
+                    h2.content_title Quiz
+                    ul.content_view_tabs
+                        li.active Prelim
+                        li Midterm
+                        li Final
+                    .tab
+                        h4 
+                        .tab_top_content
+                            .btn_2(ng-click="showQuizConfig()") Add Quiz
+                            span.total_days 
+                            //- Total: <span>60</span>
+                        table.margin_top.attendance_header
+                            thead
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
+                                    th Name
+                                    th(ng-repeat = "actDate in students.quiz_record")
+                                        a {{actDate.activity_date}}
+                                        a.activity_name {{actDate.activity_name}}
+                            tbody
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td(ng-repeat = "scores in students.quiz_record")
+                                        a {{scores.score}} / {{scores.totalScore}}
+                        .sub_view_modal(ng-show="viewQuizConfig")
+                            .overflow
+                                .sub_view_modal_inner.u-cf
+                                    span {{dateToday}} 
+                                    .pull-right.quiz_total
+                                        label.quiz_total_score Total score
+                                        input(type="text" ng-model="newQuiz.totalScore").small_input
+                                    .input_group.u-cf
+                                        label Quiz name
+                                        input(type="text" ng-model="newQuiz.activity_name").quiz_name
+                                    ul
+                                        li(ng-repeat="students in studentClassList") 
+                                            label {{students.student_name}}
+                                            input(type="text" ng-model="scoreQuiz.score" ng-bind =false ng-blur="saveQuiz(newQuiz, students, scoreQuiz)").input_quiz
+                                    .btn_2.pull-right(ng-click="closeQuiz()") Done
+                //student assignmets
+                .user_view(ng-show="studentAssignments")
+                    ul.breadcrumb
+                        li
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
+                        li.active
+                            a(href="") Assignments
+                    h2.content_title Assignments
+                    ul.content_view_tabs
+                        li.active Prelim
+                        li Midterm
+                        li Final
+                    .tab
+                        h4
+                        .tab_top_content
+                            .btn_2(ng-click="showAssignment()") Add Assignments
+                            span.total_days
+                             //- Total: <span>90</span>
+                        table.margin_top.attendance_header
+                            thead
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
+                                    th Name
+                                    th(ng-repeat = "actDate in students.assignments_record")
+                                        a {{actDate.activity_date}}
+                                        a.activity_name {{actDate.activity_name}}
+                            tbody
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td(ng-repeat = "scores in students.assignments_record")
+                                        a {{scores.score}} / {{scores.totalScore}}
+                        .sub_view_modal(ng-show="viewAssignConfig")
+                            .overflow
+                                .sub_view_modal_inner.u-cf
+                                    span {{dateToday}} 
+                                    .pull-right.quiz_total
+                                        label.quiz_total_score Total score
+                                        input(type="text" ng-model="newAssign.totalScore").small_input
+                                    .input_group.u-cf
+                                        label Assignment name
+                                        input(type="text" ng-model="newAssign.activity_name").quiz_name
+                                    ul
+                                        li(ng-repeat="students in studentClassList") 
+                                            label {{students.student_name}}
+                                            input(type="text" ng-model="scoreAssign.score" ng-bind =false ng-blur="saveAssign(newAssign, students, scoreAssign)").input_quiz
+                                    .btn_2.pull-right(ng-click="closeAssign()") Done
+                //laboratory
+                .user_view(ng-show="studentsLab")
+                    ul.breadcrumb
+                        li
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
+                        li.active
+                            a(href="") Laboratory
+                    h2.content_title Laboratory
+                    ul.content_view_tabs
+                        li.active Prelim
+                        li Midterm
+                        li Final
+                    .tab
+                        h4
+                        .tab_top_content
+                            .btn_2(ng-click="showLab()") Add Laboratory
+                            span.total_days 
+                            //- Total: <span>120</span>
+                        table.margin_top.attendance_header
+                            thead
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
+                                    th Name
+                                    th(ng-repeat = "actDate in students.laboratory_record")
+                                        a {{actDate.activity_date}}
+                                        a.activity_name {{actDate.activity_name}}
+                            tbody
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td(ng-repeat = "scores in students.laboratory_record")
+                                        a {{scores.score}} / {{scores.totalScore}}
+                        .sub_view_modal(ng-show="viewLabConfig")
+                            .overflow
+                                .sub_view_modal_inner.u-cf
+                                    span {{dateToday}} 
+                                    .pull-right.quiz_total
+                                        label.quiz_total_score Total score
+                                        input(type="text" ng-model="newLab.totalScore").small_input
+                                    .input_group.u-cf
+                                        label Laboratory name
+                                        input(type="text" ng-model="newLab.activity_name").quiz_name
+                                    ul
+                                        li(ng-repeat="students in studentClassList") 
+                                            label {{students.student_name}}
+                                            input(type="text" ng-model="scoreLab.score" ng-bind =false ng-blur="saveLab(newLab, students, scoreLab)").input_quiz
+                                    .btn_2.pull-right(ng-click="closeLab()") Done
+                //view student exam
+                .user_view(ng-show="studentExam")
+                    ul.breadcrumb
+                        li
+                            a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
+                        li.active
+                            a(href="") Exam
+                    h2.content_title Exam
+                    ul.content_view_tabs
+                        li.active Prelim
+                        li Midterm
+                        li Final
+                    .tab
+                        h4
+                        .tab_top_content
+                            .btn_2(ng-click="showExam()") Add Exam
+                        table.margin_top.attendance_header
+                            thead
+                                tr(ng-repeat="students in studentClassList | limitTo: 1")
+                                    th Name
+                                    th(ng-repeat = "actDate in students.exam_record")
+                                        a {{actDate.activity_date}}
+                                        a.activity_name {{actDate.activity_name}}
+                            tbody
+                                tr(ng-repeat="students in studentClassList")
+                                    td {{students.student_name}}
+                                    td(ng-repeat = "scores in students.exam_record")
+                                        a {{scores.score}} / {{scores.totalScore}}
+                        .sub_view_modal(ng-show="viewExamConfig")
+                            .overflow
+                                .sub_view_modal_inner.u-cf
+                                    span {{dateToday}} 
+                                    .pull-right.quiz_total
+                                        label.quiz_total_score Total score
+                                        input(type="text" ng-model="newExam.totalScore").small_input
+                                    .input_group.u-cf
+                                        label Exam name
+                                        input(type="text" ng-model="newExam.activity_name").quiz_name
+                                    ul
+                                        li(ng-repeat="students in studentClassList") 
+                                            label {{students.student_name}}
+                                            input(type="text" ng-model="scoreExam.score" ng-bind =false ng-blur="saveExam(newExam, students, scoreExam)").input_quiz
+                                    .btn_2.pull-right(ng-click="closeExam()") Done
+                .user_view(ng-show="teacherSettings")
+                    .settings 
+                        ul.breadcrumb
+                            li
+                                a(href="" ng-click="goBackToClass()") {{classInfo.class_name}}
+                            li.active
+                                a(href="") Settings
+                        h2.content_title Settings
+                        h4.title_border Class Settings
+                        form.row
+                            .input_group.row
+                                label(for="Class name").four.columns Class Name
+                                input(type="text").four.columns  
+                                span.four.columns Ex. Algebra 3-A
+                            .input_group.row
+                                label(for="School Year").four.columns School Year
+                                select.four.columns 
+                                    option(value="") 2016-2017 
+                                span.four.columns The school year   
+                        h4 Grade Settings 
+                        form.row.u-cf
+                            .row
+                                .input_group.four.columns
+                                    label(for="attendance") Attendance
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Quiz") Quiz
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Assignments") Assignments
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                            .row
+                                .input_group.four.columns
+                                    label(for="Quiz") Laboratory
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                                .input_group.four.columns
+                                    label(for="Quiz") Exam
+                                    input(type="number" min="1" max="100")
+                                    span  %
+                            button.u-cf Submit
+                .user_view(ng-show="accountSettings")
+                    .accout_settings
+                        h2.content_title Accout Settings
+                        h4.title_border Edit Account
+                        form
+                            .input_group.row
+                                label(for="Username").three.columns Username
+                                input(type="text").four.columns  
+                                span.four.columns Choose Username. Letters and Number only
+                            .input_group.row
+                                label(for="Your name").three.columns Your Name
+                                input(type="text").four.columns  
+                                span.four.columns Enter Your Full Name
+                            .input_group.row
+                                label(for="Class name").three.columns Email
+                                input(type="email").four.columns  
+                                span.four.columns Enter Your Email Address
+                            .input_group.row
+                                label(for="Class name").three.columns Phone
+                                input(type="tel").four.columns  
+                                span.four.columns Enter Your Phone Number
+                        h4.title_border New Password
+                        form
+                            .input_group.row
+                                label(for="Username").three.columns New Password
+                                input(type="password").four.columns  
+                                span.four.columns Enter a new password or leave blank to keep the same
+                            .input_group.row
+                                label(for="Username").three.columns Confirm New Password
+                                input(type="password").four.columns  
+                                span.four.columns Enter above password or leave blank to keep the same
+                            button Submit
