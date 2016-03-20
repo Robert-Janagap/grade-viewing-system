@@ -1,46 +1,39 @@
 {
-  "name": "online-grading-system",
+  "name": "grading-viewing-system",
   "version": "1.0.0",
-  "description": "online grading system a web app for teachers and students also in parents.",
-  "main": "server.js",
-  "dependencies": {
-    "express": "^4.13.4",
-    "mongoose": "^4.4.6"
-  },
-  "devDependencies": {
-    "body-parser": "^1.15.0",
-    "compression": "^1.6.1",
-    "cookie-parser": "^1.4.1",
-    "express-session": "^1.13.0",
-    "gulp": "^3.9.1",
-    "gulp-jade": "^1.1.0",
-    "gulp-jshint": "^2.0.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-sass": "^2.2.0",
-    "gulp-strip-debug": "^1.1.0",
-    "jshint": "^2.9.1",
-    "jshint-stylish": "^2.1.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "sass": "^0.5.0"
-  },
+  "description": "online grade viewing system for teacher and students",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Robert-Janagap/online-grading-system.git"
+    "url": "git+https://github.com/Robert-Janagap/grading-viewing-system.git"
   },
   "keywords": [
-    "online",
-    "grading",
+    "grade",
+    "viewing",
     "system"
   ],
   "author": "Robert Janagap",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Robert-Janagap/online-grading-system/issues"
+    "url": "https://github.com/Robert-Janagap/grading-viewing-system/issues"
   },
-  "homepage": "https://github.com/Robert-Janagap/online-grading-system#readme"
+  "homepage": "https://github.com/Robert-Janagap/grading-viewing-system#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "gulp": "^3.9.1",
+    "mongoose": "^4.4.7",
+    "sass": "^0.5.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "express-session": "^1.13.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  }
 }
