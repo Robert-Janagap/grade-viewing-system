@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Teacher Name</title>
+  </head>
+  <body class="client_bg">
+    <header class="blue_header u-cf">
+      <div class="container">
+        <div ng-controller="navCtrl" class="navigation u-cf"><a href="#/" class="logo">Online Grading System</a>
+          <nav> 
+            <ul>
+              <li><a href="" ng-click="goBackToClassList()">Classes</a></li>
+              <li><a href="" ng-click="goToAccountSettings()">Account</a></li>
+              <li><a href="" ng-click="logOut()">Log-out</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div class="row">
+      <div class="sidebar_nav two columns">
+        <ul>
+          <li><a href="" ng-click="viewAttendance()">Attendance<img src="/img/icn_att.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewStudents()">Students<img src="/img/icn_students.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewQuiz()">Quiz<img src="/img/icn_quiz.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewAssignments()">Assignments<img src="/img/icn_assign.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewLab()">Laboratory<img src="/img/icn_lab.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewExam()">Exam<img src="/img/icn_exam.png" alt=""/></a></li>
+          <li><a href="" ng-click="viewSettings()">Settings<img src="/img/icn_settings.png" alt=""/></a></li>
+        </ul>
+      </div>
+      <div ng-show="openOverlay" class="overlay">
+        <div class="create_class">
+          <h3>Create New Class</h3>
+          <form>
+            <div ng-show="creatingClass" class="row">
+              <h4 class="title_border">Class Info</h4>
+              <div class="input_group row">
+                <label for="Class name" class="three columns">Class Name</label>
+                <input type="text" ng-model="newClass.class_name" class="five columns"/><span class="four columns">Ex. Algebra 3-A</span>
+              </div>
+              <div class="input_group row">
+                <label for="School Year" class="three columns">School Year</label>
+                <div class="five columns">
+                  <select ng-model="newClass.year"> 
+                    <option value="2016-2017" selected="selected">2016-2017 </option>
+                  </select>
+                </div>
+              </div>
+              <button ng-click="openGradingScale()" class="btn_green btn_hover">Next</button><a href="" ng-click="closeCreateClass()" class="btn_cancel">cancel</a>
+            </div>
+            <div ng-show="gradingScale" class="row setGradingScale">
+              <h4 class="title_border">Grading Scale</h4>
+              <div class="row">
+                <div class="input_group four columns">
+                  <label for="attendance">Attendance</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.attendance"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Quiz">Quiz</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.quiz"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Assignments">Assignments</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.assignments"/><span> %</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input_group four columns">
+                  <label for="Quiz">Laboratory</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.lab"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Quiz">Exam</label>
+                  <input type="number" min="1" max="100" ng-model="newClass.exam"/><span> %</span>
+                </div>
+              </div>
+              <button ng-click="createNewClass(newClass)" class="pull-right u-cf">Submit</button><a href="" ng-click="closeGradingScale()" class="btn_cancel">back</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="content ten columns content_view">
+        <div ng-show="classList" class="class_list user_view">
+          <h2 class="content_title">Your Classes</h2>
+          <div ng-click="openCreateClass()" class="btn_2">Create New Class</div>
+          <table>
+            <thead>
+              <tr>
+                <th class="th_col1">Class </th>
+                <!--<img src="/img/icn_student_count.png">-->
+                <th class="th_col2">Class Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="teacherClass in classList">
+                <td><img src="/img/icn_book.png"> <a href="" ng-click="selectClass(teacherClass)">{{teacherClass.class_name}}</a></td>
+                <!-- <a href="" class="student_count">{{teacherClass.sCount}}</a>-->
+                <td>{{teacherClass.class_id}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--student class list-->
+        <div ng-show="teacherClass" class="user_view">
+          <ul class="breadcrumb">
+            <li class="active"><a href="">{{classInfo.class_name}}</a></li>
+          </ul>
+          <h2 class="content_title">{{classInfo.class_name}}</h2>
+          <tabselect class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </tabselect>
+          <div class="tab u-cf">
+            <h4>Grade</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Attendance</th>
+                  <th>Quiz</th>
+                  <th>Assignments</th>
+                  <th>Laboratory</th>
+                  <th>Exam</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td>{{students.totalAttendance}} % </td>
+                  <td>{{students.totalQuiz}} %</td>
+                  <td>{{students.totalAssignments}} %</td>
+                  <td>{{students.totalLab}} %</td>
+                  <td>{{students.totalExam}} %</td>
+                  <td>{{grade(students.totalQuiz, students.totalAttendance, students.totalAssignments, students.totalLab, students.totalExam)}} %</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--student attendance-->
+        <div ng-show="showAttendance" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Attendance</a></li>
+          </ul>
+          <h2 class="content_title">Attendance</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4>{{dateToday}} - {{dayToday}}</h4>
+            <div class="tab_top_content">
+              <div ng-click="newAttendance()" class="btn_2">Add Column</div><span class="total_days"> </span>
+              <div class="color_guide"><span><span class="clr_black"> </span>Good</span><span><span class="clr_yellow"> </span>Warning</span><span><span class="clr_drop"> </span>Drop</span></div>
+            </div>
+            <table class="margin_top attendance_header">
+              <thead>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
+                  <th>Name</th>
+                  <th ng-repeat="actDate in students.attendance_record"><a>{{actDate.activity_date}}</a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td ng-repeat="scores in students.attendance_record"><a>{{scores.score}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <div ng-show="studentAttendance" class="today_attendance">
+              <div class="today_attendance_inner u-cf"><span>{{dateToday}}</span>
+                <h4 class="title_border">Attendance</h4>
+                <ul>
+                  <li class="attendance_check"> <span>Present</span><span>Not Present</span></li>
+                  <li ng-repeat="students in studentClassList"> 
+                    <label>{{students.student_name}}
+                      <input type="checkbox" ng-model="students.checkAttendance" ng-change="saveAttendance(students, dateToday)"/>
+                      <input type="checkbox" ng-model="students.uncheckAttendance" ng-change="saveAttendance(students, dateToday)"/>
+                    </label>
+                  </li>
+                  <div ng-click="closeAttendance()" class="btn_2 pull-right">Done</div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--student list-->
+        <div ng-show="studentsList" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Students</a></li>
+          </ul>
+          <h2 class="content_title">Student List</h2>
+          <div class="tab student_tab">
+            <h4>{{classInfo.class_name}}</h4>
+            <table class="margin_top">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Student ID</th>
+                  <th> <a href=""><img src="/img/png_settings.png" alt=""/></a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td>{{students.student_id}}</td>
+                  <td> <a href=""><img src="/img/png_settings.png" alt=""/></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--student quiz-->
+        <div ng-show="studentQuiz" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Quiz</a></li>
+          </ul>
+          <h2 class="content_title">Quiz</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4> </h4>
+            <div class="tab_top_content">
+              <div ng-click="showQuizConfig()" class="btn_2">Add Quiz</div><span class="total_days"> </span>
+            </div>
+            <table class="margin_top attendance_header">
+              <thead>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
+                  <th>Name</th>
+                  <th ng-repeat="actDate in students.quiz_record"><a>{{actDate.activity_date}}</a><a class="activity_name">{{actDate.activity_name}}</a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td ng-repeat="scores in students.quiz_record"><a>{{scores.score}} / {{scores.totalScore}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <div ng-show="viewQuizConfig" class="sub_view_modal">
+              <div class="overflow">
+                <div class="sub_view_modal_inner u-cf"><span>{{dateToday}} </span>
+                  <div class="pull-right quiz_total">
+                    <label class="quiz_total_score">Total score</label>
+                    <input type="text" ng-model="newQuiz.totalScore" class="small_input"/>
+                  </div>
+                  <div class="input_group u-cf">
+                    <label>Quiz name</label>
+                    <input type="text" ng-model="newQuiz.activity_name" class="quiz_name"/>
+                  </div>
+                  <ul>
+                    <li ng-repeat="students in studentClassList"> 
+                      <label>{{students.student_name}}</label>
+                      <input type="text" ng-model="scoreQuiz.score" ng-blur="saveQuiz(newQuiz, students, scoreQuiz)" class="input_quiz"/>
+                    </li>
+                  </ul>
+                  <div ng-click="closeQuiz()" class="btn_2 pull-right">Done</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--student assignmets-->
+        <div ng-show="studentAssignments" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Assignments</a></li>
+          </ul>
+          <h2 class="content_title">Assignments</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4></h4>
+            <div class="tab_top_content">
+              <div ng-click="showAssignment()" class="btn_2">Add Assignments</div><span class="total_days"></span>
+            </div>
+            <table class="margin_top attendance_header">
+              <thead>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
+                  <th>Name</th>
+                  <th ng-repeat="actDate in students.assignments_record"><a>{{actDate.activity_date}}</a><a class="activity_name">{{actDate.activity_name}}</a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td ng-repeat="scores in students.assignments_record"><a>{{scores.score}} / {{scores.totalScore}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <div ng-show="viewAssignConfig" class="sub_view_modal">
+              <div class="overflow">
+                <div class="sub_view_modal_inner u-cf"><span>{{dateToday}} </span>
+                  <div class="pull-right quiz_total">
+                    <label class="quiz_total_score">Total score</label>
+                    <input type="text" ng-model="newAssign.totalScore" class="small_input"/>
+                  </div>
+                  <div class="input_group u-cf">
+                    <label>Assignment name</label>
+                    <input type="text" ng-model="newAssign.activity_name" class="quiz_name"/>
+                  </div>
+                  <ul>
+                    <li ng-repeat="students in studentClassList"> 
+                      <label>{{students.student_name}}</label>
+                      <input type="text" ng-model="scoreAssign.score" ng-blur="saveAssign(newAssign, students, scoreAssign)" class="input_quiz"/>
+                    </li>
+                  </ul>
+                  <div ng-click="closeAssign()" class="btn_2 pull-right">Done</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--laboratory-->
+        <div ng-show="studentsLab" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Laboratory</a></li>
+          </ul>
+          <h2 class="content_title">Laboratory</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4></h4>
+            <div class="tab_top_content">
+              <div ng-click="showLab()" class="btn_2">Add Laboratory</div><span class="total_days"> </span>
+            </div>
+            <table class="margin_top attendance_header">
+              <thead>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
+                  <th>Name</th>
+                  <th ng-repeat="actDate in students.laboratory_record"><a>{{actDate.activity_date}}</a><a class="activity_name">{{actDate.activity_name}}</a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td ng-repeat="scores in students.laboratory_record"><a>{{scores.score}} / {{scores.totalScore}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <div ng-show="viewLabConfig" class="sub_view_modal">
+              <div class="overflow">
+                <div class="sub_view_modal_inner u-cf"><span>{{dateToday}} </span>
+                  <div class="pull-right quiz_total">
+                    <label class="quiz_total_score">Total score</label>
+                    <input type="text" ng-model="newLab.totalScore" class="small_input"/>
+                  </div>
+                  <div class="input_group u-cf">
+                    <label>Laboratory name</label>
+                    <input type="text" ng-model="newLab.activity_name" class="quiz_name"/>
+                  </div>
+                  <ul>
+                    <li ng-repeat="students in studentClassList"> 
+                      <label>{{students.student_name}}</label>
+                      <input type="text" ng-model="scoreLab.score" ng-blur="saveLab(newLab, students, scoreLab)" class="input_quiz"/>
+                    </li>
+                  </ul>
+                  <div ng-click="closeLab()" class="btn_2 pull-right">Done</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--view student exam-->
+        <div ng-show="studentExam" class="user_view">
+          <ul class="breadcrumb">
+            <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+            <li class="active"><a href="">Exam</a></li>
+          </ul>
+          <h2 class="content_title">Exam</h2>
+          <ul class="content_view_tabs">
+            <li class="active">Prelim</li>
+            <li>Midterm</li>
+            <li>Final</li>
+          </ul>
+          <div class="tab">
+            <h4></h4>
+            <div class="tab_top_content">
+              <div ng-click="showExam()" class="btn_2">Add Exam</div>
+            </div>
+            <table class="margin_top attendance_header">
+              <thead>
+                <tr ng-repeat="students in studentClassList | limitTo: 1">
+                  <th>Name</th>
+                  <th ng-repeat="actDate in students.exam_record"><a>{{actDate.activity_date}}</a><a class="activity_name">{{actDate.activity_name}}</a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="students in studentClassList">
+                  <td>{{students.student_name}}</td>
+                  <td ng-repeat="scores in students.exam_record"><a>{{scores.score}} / {{scores.totalScore}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <div ng-show="viewExamConfig" class="sub_view_modal">
+              <div class="overflow">
+                <div class="sub_view_modal_inner u-cf"><span>{{dateToday}} </span>
+                  <div class="pull-right quiz_total">
+                    <label class="quiz_total_score">Total score</label>
+                    <input type="text" ng-model="newExam.totalScore" class="small_input"/>
+                  </div>
+                  <div class="input_group u-cf">
+                    <label>Exam name</label>
+                    <input type="text" ng-model="newExam.activity_name" class="quiz_name"/>
+                  </div>
+                  <ul>
+                    <li ng-repeat="students in studentClassList"> 
+                      <label>{{students.student_name}}</label>
+                      <input type="text" ng-model="scoreExam.score" ng-blur="saveExam(newExam, students, scoreExam)" class="input_quiz"/>
+                    </li>
+                  </ul>
+                  <div ng-click="closeExam()" class="btn_2 pull-right">Done</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-show="teacherSettings" class="user_view">
+          <div class="settings"> 
+            <ul class="breadcrumb">
+              <li><a href="" ng-click="goBackToClass()">{{classInfo.class_name}}</a></li>
+              <li class="active"><a href="">Settings</a></li>
+            </ul>
+            <h2 class="content_title">Settings</h2>
+            <h4 class="title_border">Class Settings</h4>
+            <form class="row">
+              <div class="input_group row">
+                <label for="Class name" class="four columns">Class Name</label>
+                <input type="text" class="four columns"/><span class="four columns">Ex. Algebra 3-A</span>
+              </div>
+              <div class="input_group row">
+                <label for="School Year" class="four columns">School Year</label>
+                <select class="four columns"> 
+                  <option value="">2016-2017 </option>
+                </select><span class="four columns">The school year   </span>
+              </div>
+            </form>
+            <h4>Grade Settings </h4>
+            <form class="row u-cf">
+              <div class="row">
+                <div class="input_group four columns">
+                  <label for="attendance">Attendance</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Quiz">Quiz</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Assignments">Assignments</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input_group four columns">
+                  <label for="Quiz">Laboratory</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+                <div class="input_group four columns">
+                  <label for="Quiz">Exam</label>
+                  <input type="number" min="1" max="100"/><span> %</span>
+                </div>
+              </div>
+              <button class="u-cf">Submit</button>
+            </form>
+          </div>
+        </div>
+        <div ng-show="accountSettings" class="user_view">
+          <div class="accout_settings">
+            <h2 class="content_title">Accout Settings</h2>
+            <h4 class="title_border">Edit Account</h4>
+            <form>
+              <div class="input_group row">
+                <label for="Username" class="three columns">Username</label>
+                <input type="text" class="four columns"/><span class="four columns">Choose Username. Letters and Number only</span>
+              </div>
+              <div class="input_group row">
+                <label for="Your name" class="three columns">Your Name</label>
+                <input type="text" class="four columns"/><span class="four columns">Enter Your Full Name</span>
+              </div>
+              <div class="input_group row">
+                <label for="Class name" class="three columns">Email</label>
+                <input type="email" class="four columns"/><span class="four columns">Enter Your Email Address</span>
+              </div>
+              <div class="input_group row">
+                <label for="Class name" class="three columns">Phone</label>
+                <input type="tel" class="four columns"/><span class="four columns">Enter Your Phone Number</span>
+              </div>
+            </form>
+            <h4 class="title_border">New Password</h4>
+            <form>
+              <div class="input_group row">
+                <label for="Username" class="three columns">New Password</label>
+                <input type="password" class="four columns"/><span class="four columns">Enter a new password or leave blank to keep the same</span>
+              </div>
+              <div class="input_group row">
+                <label for="Username" class="three columns">Confirm New Password</label>
+                <input type="password" class="four columns"/><span class="four columns">Enter above password or leave blank to keep the same</span>
+              </div>
+              <button>Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -11,38 +11,62 @@
         <div class="logInForm">
           <div class="logInForm_input">
             <label>Username</label>
-            <input type="text"/>
+            <input type="text" ng-model="user.username"/>
           </div>
           <div class="logInForm_input">
             <label>Password</label>
-            <input type="password"/>
+            <input type="password" ng-model="user.password"/>
           </div>
-          <div class="logInForm_btn">Log in</div>
+          <div ng-click="logIn(user)" class="logInForm_btn">Log in</div>
         </div>
       </div>
     </header>
+    <div ng-show="logInErr" class="overlay">
+      <div class="container logInModal">
+        <p class="errMsg">{{logInErr}}</p>
+        <label>Username</label>
+        <input type="text" ng-model="auth.username"/>
+        <label>Password</label>
+        <input type="password" ng-model="auth.password"/>
+        <div ng-click="logIn(auth)" class="signInForm_btn">Log in</div>
+      </div>
+    </div>
     <div class="container content">
       <div class="seven columns"><img src="img/grade_report.png" alt=""/></div>
       <div class="five columns">
         <div class="signInForm">
+          <p ng-show="signUpMsg" class="errMsg">{{signUpMsg}}</p>
           <h3>Sign up</h3>
           <div class="signInForm_group">
             <label>Full Name</label>
-            <input type="text"/>
+            <input type="text" ng-model="newUser.name"/><span>Ex. Robert Janagap</span>
           </div>
           <div class="signInForm_group">
             <label>Email</label>
-            <input type="email"/>
+            <input type="email" ng-model="newUser.email" ng-blur="checkEmail(newUser.email)"/><span>Ex. janagap@gmail.com</span>
           </div>
           <div class="signInForm_group">
             <label>Username</label>
-            <input type="text"/>
+            <input type="text" ng-model="newUser.username"/><span>Your username</span>
           </div>
           <div class="signInForm_group">
             <label>Password</label>
-            <input type="password"/>
+            <input type="password" ng-model="newUser.password"/><span>Your password</span>
           </div>
-          <div class="signInForm_btn">Create Account</div>
+          <div class="signInForm_group">
+            <label>Confirm Password</label>
+            <input type="password" ng-model="newUser.cpassword"/><span>Re-type your password</span>
+          </div>
+          <div class="signInForm_group signInForm_group_check">
+            <label>Type</label>
+            <label>
+              <input type="checkbox" ng-model="newUser.type" ng-true-value="'student'"/>Student
+            </label>
+            <label> 
+              <input type="checkbox" ng-model="newUser.type" ng-true-value="'teacher'"/>Teacher
+            </label>
+          </div>
+          <div ng-click="signUpUser(newUser)" class="signInForm_btn">Create Account</div>
         </div>
       </div>
     </div>

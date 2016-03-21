@@ -17,7 +17,9 @@ body{
     margin: 0;
 }  
 p {margin-bottom: 1.3em;}
-
+img{
+    width: 100%;
+}
 h1, h2, h3, h4 {
   margin: 1.414em 0 0.5em;
   font-family: 'oxygen';
@@ -101,6 +103,7 @@ header{
 }
 .content{
     margin-top: 35px;
+        margin-bottom: 100px;
 }
 .signInForm{
         box-shadow: 0 7px 16px rgba(0,0,0,0.2);
@@ -125,12 +128,55 @@ header{
     font-size: 1.1rem;
     cursor: pointer;
     }
+    span{
+        font-size: 11px;
+        color: #949494;
+        margin-left: 14px;
+    }
 }
-
+.errMsg{
+            margin: 0;
+    background: #F44336;
+    color: #fff;
+    padding: 12px;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
 footer{
         width: 100%;
     background: #D80606;
     color: #fff;
     padding: 10px 0;
     box-shadow: 0 -3px 5px rgba(0,0,0,0.3);
+}
+.signInForm_group_check{
+    label:first-child{
+        display: block;
+    }
+    label{
+        display: inline-block;
+    }
+    input{
+        width: 25px;
+    }
+}
+.overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 5;
+    .logInModal{
+            width: 25%;
+    background: #fff;
+    margin-top: 100px;
+    padding: 12px 10px;
+    border-radius: 6px;
+    }
+    input{
+        width: 100%;
+    }
 }

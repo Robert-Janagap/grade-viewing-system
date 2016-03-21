@@ -1,40 +1,65 @@
 <!DOCTYPE html>
 html(lang="en")
-	head
-		meta(charset="UTF-8")
-		title Grade Viewing System
-	body
-		header
-			.container.header_inner
-				.logo
-					| Grade Viewing System
-				.logInForm
-					.logInForm_input
-						label Username
-						input(type="text")
-					.logInForm_input
-						label Password
-						input(type="password")
-					.logInForm_btn Log in
-		.container.content
-			.seven.columns
-				img(src="img/grade_report.png", alt="")
-			.five.columns
-				.signInForm
-					h3 Sign up
-					.signInForm_group
-						label Full Name
-						input(type="text")
-					.signInForm_group
-						label Email
-						input(type="email")
-					.signInForm_group
-						label Username
-						input(type="text")
-					.signInForm_group
-						label Password
-						input(type="password")
-					.signInForm_btn Create Account
-		footer
-			.container
-				.copyright copyright © 2016 Grade Viewing System
+    head
+        meta(charset="UTF-8")
+        title Grade Viewing System
+    body
+        header
+            .container.header_inner
+                .logo
+                    | Grade Viewing System
+                .logInForm
+                    .logInForm_input
+                        label Username
+                        input(type="text" ng-model="user.username")
+                    .logInForm_input
+                        label Password
+                        input(type="password" ng-model="user.password")
+                    .logInForm_btn(ng-click="logIn(user)") Log in
+        .overlay(ng-show="logInErr")
+            .container.logInModal
+                p.errMsg {{logInErr}}
+                label Username
+                input(type="text" ng-model="auth.username")
+                label Password
+                input(type="password" ng-model="auth.password")
+                .signInForm_btn(ng-click="logIn(auth)") Log in
+        .container.content
+            .seven.columns
+                img(src="img/grade_report.png", alt="")
+            .five.columns
+                .signInForm
+                    p.errMsg(ng-show="signUpMsg") {{signUpMsg}}
+                    h3 Sign up
+                    .signInForm_group
+                        label Full Name
+                        input(type="text" ng-model="newUser.name")
+                        span Ex. Robert Janagap
+                    .signInForm_group
+                        label Email
+                        input(type="email" ng-model="newUser.email" ng-blur="checkEmail(newUser.email)")
+                        span Ex. janagap@gmail.com
+                    .signInForm_group
+                        label Username
+                        input(type="text" ng-model="newUser.username")
+                        span Your username
+                    .signInForm_group
+                        label Password
+                        input(type="password" ng-model="newUser.password")
+                        span Your password
+                    .signInForm_group
+                        label Confirm Password
+                        input(type="password" ng-model="newUser.cpassword")
+                        span Re-type your password
+                    .signInForm_group.signInForm_group_check
+                        label Type
+                        label
+                            input(type="checkbox" ng-model="newUser.type" ng-true-value="'student'")
+                            | Student
+                        label 
+                            input(type="checkbox" ng-model="newUser.type" ng-true-value="'teacher'")
+                            | Teacher
+                    .signInForm_btn(ng-click="signUpUser(newUser)") Create Account
+        footer
+            .container
+                .copyright copyright © 2016 Grade Viewing System
