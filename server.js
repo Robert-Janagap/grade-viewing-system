@@ -12,7 +12,8 @@ var express =require( 'express' ),
     port = process.env.PORT  || 3000;
 
 //connect to db
-mongoose.connect('mongodb://127.0.0.1/gradeViewingSystem');
+// mongoose.connect('mongodb://127.0.0.1/gradeViewingSystem');//local
+mongoose.connect(' mongodb://heroku_p22ncl5v:8hcm87dr83dij1tb1jheuk3f97@ds021299.mlab.com:21299/heroku_p22ncl5v'); //online
 
 //database list
 var dbUsers = mongoose.model('dbUsers', require('./app/models/dbUsers.js'));
