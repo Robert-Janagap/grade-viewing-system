@@ -13,11 +13,11 @@ gulp.task('jade', function(){
 
 gulp.task('sass', function(){
 
-	return gulp.src('./src/style.scss')
+	return gulp.src('./src/style/*.scss')
 		.pipe(sass({
 			outputStyle: 'compressed'
 			}))
-		.pipe(gulp.dest('build/'));
+		.pipe(gulp.dest('build/style'));
 	});
 
 gulp.task('watching', function(){

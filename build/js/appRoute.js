@@ -8,8 +8,13 @@ app.config(function($routeProvider){
 			controller: 'homeCtrl'
 		})
 		.when('/teacher',{
-			templateUrl: 'views/teacher.html',
-			controller: 'teacherCtrl'
+			templateUrl: 'views/teacher.html'
+		})
+		.when('/teacher/class',{
+			templateUrl: 'views/teacherClass.html'
+		})
+		.when('/teacher/notifications',{
+			templateUrl: 'views/notifications.html'
 		})
 		.otherwise({
 			redirectTo: '/'

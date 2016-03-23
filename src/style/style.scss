@@ -180,3 +180,241 @@ footer{
         width: 100%;
     }
 }
+.sub_pages_header{
+    ul{
+        list-style: none;
+        margin: 0;
+    }
+    li{
+        margin-bottom: 1rem;
+    margin: 0;
+    display: inline-block;
+    margin-right: 28px;
+    }
+    a{
+        color: #fff;
+        &:hover{
+            color: #FF756B;
+        }
+    }
+
+}
+.notification{
+    position: relative;
+    &_counter{
+        position: absolute;
+        right: -22px;
+        top: -9px;
+        background: #F44336;
+        padding: 2px 4px;
+        font-size: 13px;
+        border-radius: 45%;
+    }
+}
+
+.classList{
+    width: 100%;
+        margin-top: 50px;
+    ul{
+        width: 100%;
+        list-style: none;
+    }
+}
+.mfour{
+        width: 29%;
+        float: left;
+        margin: 2%;
+    }
+.class{
+    cursor: pointer;
+    box-shadow: 0 8px 8px rgb(204, 204, 204);
+    border: 1px solid #D2D2D2;
+    border-radius: 4px;
+    transition: all .3s ease-in-out;
+    &:hover{
+            box-shadow: 20px 20px 10px rgb(204, 204, 204);
+    }
+    &_title{
+        margin-bottom: 10px;
+        margin-top: 0;
+        text-align: center
+    }
+    &_info{
+            position: relative;
+        
+        padding: 12px;
+        
+    }
+    &_topStudents{
+        ol{
+            margin: 0;
+            margin-top: 14px;
+        }
+        li{
+            span{
+                float: right;
+            }
+        }
+    }
+    &_dateCreated{
+            position: absolute;
+        right: 14px;
+    }
+    h5{
+        text-transform: uppercase;
+        border-bottom: 3px solid #F44336;
+        margin-top: 29px;
+        padding-bottom: 3px;
+        text-align: center
+    }
+    &_code{
+        position: absolute;
+    }
+    &_util{
+        margin-bottom: 45px;
+    }
+    .list_title{
+        list-style: none;
+        font-weight: bold;
+        margin-bottom: 7px;
+        display: block;
+        span{
+            float: right;
+        }
+    }
+}
+.no-border{
+    border: 0;
+    th{
+        border: 0;
+    }
+}
+.teacher_class{
+    thead{
+        background: #009688;
+        color: #fff;
+    }
+    table{
+        // width: 60%;
+    }
+    td:not(:first-child),
+    th:not(:first-child){
+        text-align: center;
+    }
+    td:first-child,
+    th:first-child{
+        padding-left: 10px;
+    }
+    td:last-child,
+    th:last-child{
+        padding-right: 10px;
+    }
+    input{
+        width: 43%;
+        text-align: center;
+        margin: 0;
+    }
+}
+.teacher_notifications{
+    margin-top: 50px;
+    border: 1px solid #EAEAEA;
+    padding: 12px;
+    border-top: 25px solid #009688;
+    &_student{
+        margin-top: 12px;
+    }
+    &_date{
+        font-size: .7rem;
+        color: #8A8A8A;
+        text-transform: uppercase;
+    }
+}
+.btn{
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #D2D2D2;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    &_large{
+        font-size: 18px;
+        padding: 10px 22px;
+    }
+    &_green{
+        background: #4CAF50;
+        color: #fff;
+        border: 0;
+        box-shadow: 0 2px 3px rgb(204, 204, 204);
+        &:hover{
+            box-shadow: 4px 5px 3px #ccc;
+        }
+    }
+    &_red{
+        background: #FF1100;
+        color: #fff;
+        border: 0;
+        box-shadow: 0 2px 3px rgb(204, 204, 204);
+        &:hover{
+            box-shadow: 4px 5px 3px #ccc;
+        }
+    }
+    &_blue{
+        background: #00B0FF;
+        color: #fff;
+        border: 0;
+        box-shadow: 0 2px 3px rgb(204, 204, 204);
+        &:hover{
+            box-shadow: 4px 5px 3px #ccc;
+        }
+    }
+    &_full{
+        width: 90%;
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    
+    }
+}
+.close_btn{
+    display: inline-block;
+    background: #FF1A00;
+    padding: 4px 9px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: bold;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    cursor: pointer;
+}
+.teacher_notifications_btn{
+    text-align: center;
+    margin-top: 32px;
+    .btn{
+        margin-left: 12px;
+    }
+}
+.create_class{
+    width: 21%;
+    margin: 0 auto;
+    background: #fff;
+    margin-top: 60px;
+    padding: 18px;
+    border-radius: 4px;
+    position: relative
+}
+.criteria{
+    &_title{
+        border-bottom: 3px solid #009688;
+        width:100%;
+            margin-bottom: 20px;
+    }
+    label, input{
+        display: inline-block;
+    }
+    input{
+        float:right;
+        width: 30%;
+        text-align: center;
+    }
+}
