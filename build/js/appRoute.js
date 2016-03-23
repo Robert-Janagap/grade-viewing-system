@@ -16,6 +16,15 @@ app.config(function($routeProvider){
 		.when('/teacher/notifications',{
 			templateUrl: 'views/notifications.html'
 		})
+		.when('/student',{
+			templateUrl: 'views/student.html'
+		})
+		.when('/student/notifications',{
+			templateUrl: 'views/student_notifications.html'
+		})
+		.when('/student/archive',{
+			templateUrl: 'views/archive.html'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
