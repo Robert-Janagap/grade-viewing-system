@@ -16,8 +16,9 @@ html(lang="en")
                         label Password
                         input(type="password" ng-model="user.password")
                     .logInForm_btn(ng-click="logIn(user)") Log in
-        .overlay(ng-show="logInErr")
+        .overlay_2(ng-show="logInErr")
             .container.logInModal
+                .close_btn(ng-click="closeLogin()") X
                 p.errMsg {{logInErr}}
                 label Username
                 input(type="text" ng-model="auth.username")

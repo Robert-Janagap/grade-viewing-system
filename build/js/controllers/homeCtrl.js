@@ -39,6 +39,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$location','$rootScope','$routeP
 	//login
 	$scope.logIn = function(user){
 		$http.post('/login', user).success(function(data){
+			console.log(data);
 			if(data.loginErr){
 				$scope.logInErr = data.loginErr;
 			}else{
@@ -56,4 +57,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$location','$rootScope','$routeP
 		});
 	}
 
+	$scope.closeLogin = function(){
+		$scope.logInErr = false;
+	}
 }]);

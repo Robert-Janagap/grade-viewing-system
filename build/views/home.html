@@ -21,8 +21,9 @@
         </div>
       </div>
     </header>
-    <div ng-show="logInErr" class="overlay">
+    <div ng-show="logInErr" class="overlay_2">
       <div class="container logInModal">
+        <div ng-click="closeLogin()" class="close_btn">X</div>
         <p class="errMsg">{{logInErr}}</p>
         <label>Username</label>
         <input type="text" ng-model="auth.username"/>
