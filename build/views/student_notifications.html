@@ -7,14 +7,14 @@
   <body>
     <header>
       <div class="container header_inner sub_pages_header">
-        <ul>
+        <ul ng-controller="navCtrl">
           <li>
             <input type="text"/>
           </li>
-          <li><a href="" class="notification">Notifications<span class="notification_counter">32</span></a></li>
-          <li><a href="">Archive</a></li>
-          <li><a href="">Classes</a></li>
-          <li><a href="">Log-out</a></li>
+          <li><a href="#/student/notifications" class="notification">Notifications<span class="notification_counter">32</span></a></li>
+          <li><a href="#/student/archive">Archive</a></li>
+          <li><a href="#/student">Classes</a></li>
+          <li><a href="" ng-click="logOut()">Log-out</a></li>
         </ul>
       </div>
     </header>

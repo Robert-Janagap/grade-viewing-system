@@ -6,17 +6,16 @@ html(lang="en")
     body
         header
             .container.header_inner.sub_pages_header
-                ul
+                ul(ng-controller = "navCtrl")
                     li
-                        a(href="") Users
+                        a(href="#/administrator") Users
                     li
-                        a(href="") Report
-                    li
-                        a(href="") Log-out
+                        a(href="" ng-click="logOut()") Log-out
         .container
             .admin
                 h4.admin_user User name - User Id
-                //.student_class
+                p ***if admin click the student
+                .student_class
                     table
                         thead
                             tr
@@ -57,6 +56,7 @@ html(lang="en")
                                 td 90%
                                 td 90%
                                 td 90%
+                p ***if admin click the teacher
                 .teacher_class
                     ul.teacher_summary_nav.two.columns
                         li.active Algebra

@@ -7,14 +7,41 @@
   <body>
     <header>
       <div class="container header_inner sub_pages_header">
-        <ul>
-          <li><a href="" class="notification">Notifications<span class="notification_counter">32</span></a></li>
-          <li><a href="">Create Class</a></li>
-          <li><a href="">Classes</a></li>
-          <li><a href="">Log-out</a></li>
+        <ul ng-controller="navCtrl">
+          <li><a href="#/teacher/">Classes</a></li>
+          <li><a href="#/teacher/notifications" class="notification">Notifications<span class="notification_counter">32</span></a></li>
+          <li>
+            <toggle-modal> <a href="">Create Class</a></toggle-modal>
+          </li>
+          <li><a href="" ng-click="logOut()">Log-out</a></li>
         </ul>
       </div>
     </header>
+    <div class="overlay">
+      <div class="create_class">
+        <toggle-modal class="close_btn">X</toggle-modal>
+        <div class="row">
+          <label for="">Class Name</label>
+          <input type="text" placeholder="Ex. algebra 2-a"/>
+        </div>
+        <div class="row criteria">
+          <label for="" class="criteria_title">Criteria</label>
+          <div class="row">
+            <label for="">Prelim</label>
+            <input type="number" max="50" min="20"/>
+          </div>
+          <div class="row">
+            <label for="">Midterm</label>
+            <input type="number" max="50" min="20"/>
+          </div>
+          <div class="row">
+            <label for="">Final</label>
+            <input type="number" max="50" min="20"/>
+          </div>
+        </div>
+        <div class="btn btn_full btn_blue">Create Class</div>
+      </div>
+    </div>
     <div class="container">
       <div class="teacher_class">
         <h3 class="teacher_class_title">Science ( Class Code )</h3>

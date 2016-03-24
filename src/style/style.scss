@@ -169,6 +169,7 @@ footer{
     right: 0;
     background: rgba(0,0,0,0.3);
     z-index: 5;
+    display: none;
     .logInModal{
             width: 25%;
     background: #fff;
@@ -217,7 +218,10 @@ footer{
 
 .classList{
     width: 100%;
-        margin-top: 50px;
+    margin-top: 50px;
+    a{
+        color:#000;
+    }
     ul{
         width: 100%;
         list-style: none;

@@ -44,14 +44,14 @@ app.controller('homeCtrl', ['$scope', '$http', '$location','$rootScope','$routeP
 			}else{
 				$scope.logInErr = false;
 				$rootScope.currentUser = data;
-				// userRoutes = ["administrator","teacher","student"];
-				// 	for (var i = userRoutes.length - 1; i >= 0; i--) {
+				userRoutes = ["administrator","teacher","student"];
+					for (var i = userRoutes.length - 1; i >= 0; i--) {
 						
-				// 		if(data.type === userRoutes[i]){
-				// 			$location.url('/' + userRoutes[i]);
-				// 		}
+						if(data.type === userRoutes[i]){
+							$location.url('/' + userRoutes[i]);
+						}
 					
-				// 	}
+					}
 			}
 		});
 	}

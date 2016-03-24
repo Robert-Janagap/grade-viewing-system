@@ -6,11 +6,11 @@ html(lang="en")
     body
         header
             .container.header_inner.sub_pages_header
-                ul
+                ul(ng-controller = "navCtrl")
                     li
-                        a(href="") Users
+                        a(href="#/administrator") Users
                     li
-                        a(href="") Log-out
+                        a(href="" ng-click="logOut()") Log-out
         .container
             .admin
                 .ten.columns
@@ -33,13 +33,13 @@ html(lang="en")
                                 td Teacher
                                 td 123213
                                 td 
-                                    .btn.btn_green View
+                                    a(href="#/administrator/summary").btn.btn_green View
                             tr
                                 td Robert Janagao
                                 td Student
                                 td 123213
                                 td 
-                                    .btn.btn_green View
+                                    a(href="#/administrator/summary").btn.btn_green View
                 .two.columns.admin_reports
                     label(for="") Number of Students
                     p 45

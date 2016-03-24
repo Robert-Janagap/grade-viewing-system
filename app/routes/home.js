@@ -18,7 +18,11 @@ router.post('/new-user', function(req, res){
 		res.json(data);
 	});
 });
-// router.get('/loggedin', function(req, res){
-// 	res.send(req.isAuthenticated() ? req.user : '0');
-// });
+router.get('/loggedin', function(req, res){
+	res.send(req.isAuthenticated() ? req.user : '0');
+});
+router.post('/logout', function(req, res){
+	req.logOut();
+	res.sendStatus(200);
+});
 module.exports = router;

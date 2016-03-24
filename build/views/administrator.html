@@ -7,9 +7,9 @@
   <body>
     <header>
       <div class="container header_inner sub_pages_header">
-        <ul>
-          <li><a href="">Users</a></li>
-          <li><a href="">Log-out</a></li>
+        <ul ng-controller="navCtrl">
+          <li><a href="#/administrator">Users</a></li>
+          <li><a href="" ng-click="logOut()">Log-out</a></li>
         </ul>
       </div>
     </header>
@@ -38,17 +38,13 @@
                 <td>Robert Janagao</td>
                 <td>Teacher</td>
                 <td>123213</td>
-                <td> 
-                  <div class="btn btn_green">View</div>
-                </td>
+                <td> <a href="#/administrator/summary" class="btn btn_green">View</a></td>
               </tr>
               <tr>
                 <td>Robert Janagao</td>
                 <td>Student</td>
                 <td>123213</td>
-                <td> 
-                  <div class="btn btn_green">View</div>
-                </td>
+                <td> <a href="#/administrator/summary" class="btn btn_green">View</a></td>
               </tr>
             </tbody>
           </table>

@@ -6,16 +6,35 @@ html(lang="en")
     body
         header
             .container.header_inner.sub_pages_header
-                ul
+                ul(ng-controller = "navCtrl")
                     li
-                        a(href="").notification Notifications
+                        a(href="#/teacher/") Classes
+                    li
+                        a(href="#/teacher/notifications").notification Notifications
                             span.notification_counter 32
                     li
-                        a(href="") Create Class
+                        toggle-modal 
+                            a(href="") Create Class
                     li
-                        a(href="") Classes
-                    li
-                        a(href="") Log-out
+                        a(href="" ng-click="logOut()") Log-out
+        .overlay
+            .create_class
+                toggle-modal.close_btn X
+                .row
+                    label(for="") Class Name
+                    input(type="text" placeholder = "Ex. algebra 2-a")
+                .row.criteria
+                    label(for="").criteria_title Criteria
+                    .row
+                        label(for="") Prelim
+                        input(type="number" max=50 min=20)
+                    .row
+                        label(for="") Midterm
+                        input(type="number" max=50 min=20)
+                    .row
+                        label(for="") Final
+                        input(type="number" max=50 min=20)
+                .btn.btn_full.btn_blue Create Class
         .container
             .notifications.row
                 .notifications_info.eight.columns

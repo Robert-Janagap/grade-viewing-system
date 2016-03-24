@@ -13,7 +13,7 @@ var express =require( 'express' ),
 
 //connect to db
 // mongoose.connect('mongodb://127.0.0.1/gradeViewingSystem');//local
-// mongoose.connect('mongodb://heroku_p22ncl5v:8hcm87dr83dij1tb1jheuk3f97@ds021299.mlab.com:21299/heroku_p22ncl5v'); //online
+mongoose.connect('mongodb://heroku_p22ncl5v:8hcm87dr83dij1tb1jheuk3f97@ds021299.mlab.com:21299/heroku_p22ncl5v'); //online
 
 //database list
 var dbUsers = mongoose.model('dbUsers', require('./app/models/dbUsers.js'));
@@ -67,6 +67,23 @@ app.get('/db-users', function(req, res){
         res.json(data);
     });
 });
+
+//generate admin
+// router.get('/create-admin', function(req, res){
+//     var newUser = new dbUsers({
+//         userId: 'admin-110694',
+//         name: 'administrator',
+//         email: 'admin@gmail.com',
+//         username: 'admin',
+//         password: 'admin',
+//         type: 'administrator'
+//     }).save(function(err, data){
+//         if(err){
+//             return err;
+//         }   
+//         res.json(data);
+//     });
+// });
 
 http.createServer( app ).listen( port, function(){
     console.log( 'the server now listen at port 3000' );
