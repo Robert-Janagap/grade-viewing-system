@@ -293,7 +293,8 @@ footer{
     }
 }
 .teacher_class,
-.student_class{
+.student_class,
+.admin_table{
     thead{
         background: #009688;
         color: #fff;
@@ -464,5 +465,71 @@ footer{
         &:hover{
             box-shadow: 4px 4px 4px #CCC;
         }
+    }
+}
+.admin{
+    margin-top: 50px;
+    table{
+        width: 100%;
+    }
+    &_user{
+        margin-bottom:30px;
+    }
+    &_reports{
+        text-align: center;
+        border: 1px solid #E4E4E4;
+        label{
+            padding: 12px 0;
+            background: #009688;
+            color: #fff;
+            font-size: 12px;
+        }
+        p{
+            font-size: 2rem;
+            margin: 6px 0;
+            color: #2F2F2F;
+        }
+    }
+}
+.admin_filter{
+    ul{
+        list-style: none;
+        display: inline-block;
+        li{
+            margin-bottom: 1rem;
+            display: inline-block;
+            margin-right: 20px;
+            padding: 4px 13px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all .3s ease-in-out;
+        }
+    }
+    li.active{
+        background: #00B0FF;
+        color: #fff;
+    }
+    li:hover{
+        background: #00B0FF;
+        color: #fff;
+    }
+}
+.teacher_summary_nav{
+    list-style: none;
+    li{
+        padding: 8px 12px;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: all .3s ease-in-out;
+    }
+    li.active{
+        background: #00B0FF;
+        color: #fff;
+    }
+    li:hover{
+        background: #00B0FF;
+        color: #fff;
     }
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        title Administrator
+    body
+        header
+            .container.header_inner.sub_pages_header
+                ul
+                    li
+                        a(href="") Users
+                    li
+                        a(href="") Log-out
+        .container
+            .admin
+                .ten.columns
+                    .admin_filter
+                        ul
+                            li.active All
+                            li Students
+                            li Teachers
+                        input(type="text")
+                    table.admin_table
+                        thead
+                            tr
+                                th Name
+                                th User Type
+                                th User Id
+                                th Summary
+                        tbody
+                            tr
+                                td Robert Janagao
+                                td Teacher
+                                td 123213
+                                td 
+                                    .btn.btn_green View
+                            tr
+                                td Robert Janagao
+                                td Student
+                                td 123213
+                                td 
+                                    .btn.btn_green View
+                .two.columns.admin_reports
+                    label(for="") Number of Students
+                    p 45
+                    label(for="") Number of Teachers
+                    p 100
+                    label(for="") Number of Active Class
+                    p 150
+
