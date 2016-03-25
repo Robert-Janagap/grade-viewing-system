@@ -7,8 +7,16 @@ var users = new mongoose.Schema({
 	name: String,
 	email: String,
 	username: String,
-	password: String,
-	type: String
+	password: String, 
+	type: String,
+	notifications:{
+		message: String,
+		dateSend: String,
+		userName: String,
+		userId: String,
+		classId : String,
+		done: String
+	}
 }, {collection: 'dbUsers'});
 
 module.exports = users;

@@ -22,24 +22,34 @@
         <toggle-modal class="close_btn">X</toggle-modal>
         <div class="row">
           <label for="">Class Name</label>
-          <input type="text" placeholder="Ex. algebra 2-a"/>
+          <input type="text" placeholder="Ex. algebra 2-a" ng-model="criteria.className"/>
         </div>
         <div class="row criteria">
           <label for="" class="criteria_title">Criteria</label>
           <div class="row">
             <label for="">Prelim</label>
-            <input type="number" max="50" min="20"/>
+            <limit-input>
+              <input type="number" max="60" min="10" ng-model="criteria.prelim" ng-change="computeCriteria(criteria)" class="num"/>
+            </limit-input>
           </div>
           <div class="row">
             <label for="">Midterm</label>
-            <input type="number" max="50" min="20"/>
+            <limit-input>
+              <input type="number" max="60" min="10" ng-model="criteria.midterm" ng-change="computeCriteria(criteria)" class="num"/>
+            </limit-input>
           </div>
           <div class="row">
             <label for="">Final</label>
-            <input type="number" max="50" min="20"/>
+            <limit-input>
+              <input type="number" max="60" min="10" ng-model="criteria.final" ng-change="computeCriteria(criteria)" class="num"/>
+            </limit-input>
+          </div>
+          <div class="row">
+            <label for="">Total Percent</label>
+            <input type="number" disabled="disabled" ng-value="totalPercent" id="totalCriteria"/>
           </div>
         </div>
-        <div class="btn btn_full btn_blue">Create Class</div>
+        <div ng-click="saveCriteria(criteria,criteria.className)" class="btn btn_full btn_blue">Create Class</div>
       </div>
     </div>
     <div class="container">

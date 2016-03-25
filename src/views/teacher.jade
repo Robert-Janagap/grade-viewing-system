@@ -22,19 +22,25 @@ html(lang="en")
                 toggle-modal.close_btn X
                 .row
                     label(for="") Class Name
-                    input(type="text" placeholder = "Ex. algebra 2-a")
+                    input(type="text" placeholder = "Ex. algebra 2-a" ng-model="criteria.className")
                 .row.criteria
                     label(for="").criteria_title Criteria
                     .row
                         label(for="") Prelim
-                        input(type="number" max=50 min=20)
+                        limit-input
+                            input(type="number" max=60 min=10 class="num" ng-model="criteria.prelim" ng-change = "computeCriteria(criteria)")
                     .row
                         label(for="") Midterm
-                        input(type="number" max=50 min=20)
+                        limit-input
+                            input(type="number" max=60 min=10 class="num" ng-model="criteria.midterm" ng-change = "computeCriteria(criteria)")
                     .row
                         label(for="") Final
-                        input(type="number" max=50 min=20)
-                .btn.btn_full.btn_blue Create Class
+                        limit-input
+                            input(type="number" max=60 min=10 class="num" ng-model="criteria.final" ng-change = "computeCriteria(criteria)")
+                    .row
+                        label(for="") Total Percent
+                        input(type="number" disabled ng-value="totalPercent" id="totalCriteria")
+                .btn.btn_full.btn_blue(ng-click="saveCriteria(criteria,criteria.className)") Create Class
         .container
             .classList.u-cf
                 ul.u-cf

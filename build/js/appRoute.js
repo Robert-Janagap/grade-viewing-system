@@ -48,20 +48,20 @@ app.config(function($routeProvider){
 
 // check if the user login
 var checkLogin = function($q, $timeout, $http, $location, $rootScope){
-	var deferred = $q.defer();
-	$http.get('/loggedin').success(function(data){
-		$rootScope.errorMessage = null;
-		//user is authenticated
-		if(data !=='0'){
-			$rootScope.currentUser = data;
-			deferred.resolve();
-		}else{ //user is not authenticated
-			$rootScope.errorMessage = "can't find the username or password";
-			$location.url('/');
-			deferred.reject();
-		}
-	});
-	return deferred.promise;
+	// var deferred = $q.defer();
+	// $http.get('/loggedin').success(function(data){
+	// 	$rootScope.errorMessage = null;
+	// 	//user is authenticated
+	// 	if(data !=='0'){
+	// 		$rootScope.currentUser = data;
+	// 		deferred.resolve();
+	// 	}else{ //user is not authenticated
+	// 		$rootScope.errorMessage = "can't find the username or password";
+	// 		$location.url('/');
+	// 		deferred.reject();
+	// 	}
+	// });
+	// return deferred.promise;
 };
 
 // toggle overlay
@@ -80,6 +80,27 @@ app.directive('toggleModal', function(){
 	};
 });
 
+// limit input number
+app.directive('limitInput', function(){
+	return{
+		scope:{},
+		restrict:"E",
+		link: function(scope, element, attrs){
+			
+		 	$('.num').on( 'keydown',function ( event ){
+				if($(this).val() >= 60){
+					$(this).val(60); 
+				}
+
+		    } );
+		    $('.num').on( 'keyup',function ( event ){
+				if($(this).val() >= 60){
+					$(this).val(60); 
+				}
+		    } );
+		}
+	};
+});
 
 app.controller('navCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
 	$scope.logOut = function(){
