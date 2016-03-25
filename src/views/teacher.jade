@@ -17,9 +17,10 @@ html(lang="en")
                             a(href="") Create Class
                     li
                         a(href="" ng-click="logOut()") Log-out
-        .overlay
+        .overlay(id="saveClassBtn")
             .create_class
                 toggle-modal.close_btn X
+                p.errMsg(ng-show="errClass") {{errClass}}
                 .row
                     label(for="") Class Name
                     input(type="text" placeholder = "Ex. algebra 2-a" ng-model="criteria.className")
@@ -28,15 +29,15 @@ html(lang="en")
                     .row
                         label(for="") Prelim
                         limit-input
-                            input(type="number" max=60 min=10 class="num" ng-model="criteria.prelim" ng-change = "computeCriteria(criteria)")
+                            input(type="number" max=60 min=10 class="num" ng-model="criteria.cPrelim" ng-change = "computeCriteria(criteria)")
                     .row
                         label(for="") Midterm
                         limit-input
-                            input(type="number" max=60 min=10 class="num" ng-model="criteria.midterm" ng-change = "computeCriteria(criteria)")
+                            input(type="number" max=60 min=10 class="num" ng-model="criteria.cMidterm" ng-change = "computeCriteria(criteria)")
                     .row
                         label(for="") Final
                         limit-input
-                            input(type="number" max=60 min=10 class="num" ng-model="criteria.final" ng-change = "computeCriteria(criteria)")
+                            input(type="number" max=60 min=10 class="num" ng-model="criteria.cFinal" ng-change = "computeCriteria(criteria)")
                     .row
                         label(for="") Total Percent
                         input(type="number" disabled ng-value="totalPercent" id="totalCriteria")
@@ -44,13 +45,13 @@ html(lang="en")
         .container
             .classList.u-cf
                 ul.u-cf
-                    a(href="#/teacher/class")
+                    a(href="#/teacher/class" ng-repeat = "classes in classList")
                         li.mfour.class
                             .class_info
                                 .class_util.u-cf
-                                    .class_code ( class code )
-                                    .class_dateCreated 12/23/16
-                                h4.class_title Algebra 
+                                    .class_code.text_blur {{classes.classId}}
+                                    .class_dateCreated.text_blur {{classes.dateCreated}}
+                                h4.class_title {{classes.className}} 
                                 .class_topStudents
                                     h5 Top 5 Students
                                     ol
@@ -66,114 +67,3 @@ html(lang="en")
                                             span 90%
                                         li Santino
                                             span 90%
-                    a(href="#/teacher/class")
-                        li.mfour.class
-                            .class_info
-                                .class_util.u-cf
-                                    .class_code ( class code )
-                                    .class_dateCreated 12/23/16
-                                h4.class_title Algebra 
-                                .class_topStudents
-                                    h5 Top 5 Students
-                                    ol
-                                        span.list_title Student Name
-                                            span Gen.Ave.
-                                        li Angelo 
-                                            span 90%
-                                        li Miguel
-                                            span 90%
-                                        li Juan
-                                            span 90%
-                                        li Pedro
-                                            span 90%
-                                        li Santino
-                                            span 90%
-                    a(href="#/teacher/class")
-                        li.mfour.class
-                            .class_info
-                                .class_util.u-cf
-                                    .class_code ( class code )
-                                    .class_dateCreated 12/23/16
-                                h4.class_title Algebra 
-                                .class_topStudents
-                                    h5 Top 5 Students
-                                    ol
-                                        span.list_title Student Name
-                                            span Gen.Ave.
-                                        li Angelo 
-                                            span 90%
-                                        li Miguel
-                                            span 90%
-                                        li Juan
-                                            span 90%
-                                        li Pedro
-                                            span 90%
-                                        li Santino
-                                            span 90%
-                    a(href="#/teacher/class")
-                        li.mfour.class
-                            .class_info
-                                .class_util.u-cf
-                                    .class_code ( class code )
-                                    .class_dateCreated 12/23/16
-                                h4.class_title Algebra 
-                                .class_topStudents
-                                    h5 Top 5 Students
-                                    ol
-                                        span.list_title Student Name
-                                            span Gen.Ave.
-                                        li Angelo 
-                                            span 90%
-                                        li Miguel
-                                            span 90%
-                                        li Juan
-                                            span 90%
-                                        li Pedro
-                                            span 90%
-                                        li Santino
-                                            span 90%
-                    a(href="#/teacher/class")
-                        li.mfour.class
-                            .class_info
-                                .class_util.u-cf
-                                    .class_code ( class code )
-                                    .class_dateCreated 12/23/16
-                                h4.class_title Algebra 
-                                .class_topStudents
-                                    h5 Top 5 Students
-                                    ol
-                                        span.list_title Student Name
-                                            span Gen.Ave.
-                                        li Angelo 
-                                            span 90%
-                                        li Miguel
-                                            span 90%
-                                        li Juan
-                                            span 90%
-                                        li Pedro
-                                            span 90%
-                                        li Santino
-                                            span 90%
-                    a(href="#/teacher/class")
-                        li.mfour.class
-                            .class_info
-                                .class_util.u-cf
-                                    .class_code ( class code )
-                                    .class_dateCreated 12/23/16
-                                h4.class_title Algebra 
-                                .class_topStudents
-                                    h5 Top 5 Students
-                                    ol
-                                        span.list_title Student Name
-                                            span Gen.Ave.
-                                        li Angelo 
-                                            span 90%
-                                        li Miguel
-                                            span 90%
-                                        li Juan
-                                            span 90%
-                                        li Pedro
-                                            span 90%
-                                        li Santino
-                                            span 90%
-        

@@ -7,8 +7,9 @@ html(lang="en")
         header
             .container.header_inner.sub_pages_header
                 ul(ng-controller = "navCtrl")
-                    li
-                        input(type="text")
+                    li.findClass
+                        input(type="text" ng-model="class_code")
+                        span(ng-click="findClass(class_code)").btn_find Join Class
                     li
                         a(href="#/student/notifications").notification Notifications
                             span.notification_counter 32
@@ -19,6 +20,7 @@ html(lang="en")
                     li
                         a(href="" ng-click="logOut()") Log-out
         .container
+            p(ng-show="findSuccess" ng-click="deleteMsg()" id="findClass_success").findClass_success {{success_msg}}
             .student_class
                 table
                     thead

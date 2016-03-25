@@ -43,40 +43,14 @@
       </div>
     </div>
     <div class="container">
-      <div class="notifications row">
+      <div ng-repeat="notification in notifications | orderBy:'-timeSend'" class="notifications row">
         <div class="notifications_info eight columns">
-          <h4 class="notifications_student">Robert Janagap - 123-2312-321</h4>
-          <p class="notifications_msg"> Hello my name is Robert Janagap and I would like to join in your class - <strong>Algebra ( 13213123 )</strong></p><span class="notifications_date">9:30 a.m, monday - 12/32/20</span>
+          <h4 class="notifications_student">{{notification.userName}} - {{notification.userId}}</h4>
+          <p class="notifications_msg"> {{notification.message}}</p><span class="notifications_date">{{notification.dateSend}} at {{notification.timeSend}}</span>
         </div>
         <div class="notifications_btn four columns">
-          <div class="btn btn_large btn_green">Confirm</div>
-          <div class="btn btn_large btn_red">Delete</div>
-        </div>
-      </div>
-      <div class="notifications row">
-        <div class="notifications_info eight columns">
-          <h4 class="notifications_student">Robert Janagap - 123-2312-321</h4>
-          <p class="notifications_msg"> Hello my name is Robert Janagap and I would like to join in your class - <strong>Algebra ( 13213123 )</strong></p><span class="notifications_date">9:30 a.m, monday - 12/32/20</span>
-        </div>
-        <div class="notifications_btn four columns">
-          <div class="btn btn_large btn_green">Confirm</div>
-          <div class="btn btn_large btn_red">Delete</div>
-        </div>
-      </div>
-      <div class="notifications row">
-        <div class="notifications_info eight columns">
-          <h4 class="notifications_student">Robert Janagap - 123-2312-321</h4>
-          <p class="notifications_msg"> Hello my name is Robert Janagap and I would like to join in your class - <strong>Algebra ( 13213123 )</strong></p><span class="notifications_date">9:30 a.m, monday - 12/32/20</span>
-        </div>
-        <div class="notifications_btn four columns">
-          <div class="btn btn_large btn_green">Confirm</div>
-          <div class="btn btn_large btn_red">Delete</div>
-        </div>
-      </div>
-      <div class="notifications row">
-        <div class="notifications_info eight columns">
-          <h4 class="notifications_student">Robert Janagap - 123-2312-321</h4>
-          <p class="notifications_msg"> This is a message for you master</p><span class="notifications_date">9:30 a.m, monday - 12/32/20</span>
+          <div ng-click="confirmRequest(notification)" class="btn btn_large btn_green">Confirm</div>
+          <div ng-click="deleteRequest(notification)" class="btn btn_large btn_red">Delete</div>
         </div>
       </div>
     </div>

@@ -12,10 +12,13 @@ var users = new mongoose.Schema({
 	notifications:{
 		message: String,
 		dateSend: String,
+		timeSend: String,
 		userName: String,
 		userId: String,
 		classId : String,
-		done: String
+		className : String,
+		confirm: String,
+		notification_id: String
 	}
 }, {collection: 'dbUsers'});
 

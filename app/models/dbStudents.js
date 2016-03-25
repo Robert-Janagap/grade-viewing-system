@@ -13,8 +13,7 @@ var studentClass = new mongoose.Schema({
 	prelim: Number,
 	midterm: Number,
 	final: Number,
-	status: String,
-	confirm: String
+	status: String
 }, {collection: 'dbStudents'});
 
 module.exports = studentClass;

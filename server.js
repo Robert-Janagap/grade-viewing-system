@@ -18,6 +18,8 @@ mongoose.connect('mongodb://127.0.0.1/gradeViewingSystem');//local
 
 //database list
 var dbUsers = mongoose.model('dbUsers', require('./app/models/dbUsers.js'));
+var dbTeachers = mongoose.model('dbTeachers', require('./app/models/dbTeachers.js'));
+var dbStudents = mongoose.model('dbStudents', require('./app/models/dbStudents.js'));
 
 
 //middleware
@@ -57,11 +59,31 @@ app.post('/login', passport.authenticate('local'), function(req, res){
 
 //url
 var home = require('./app/routes/home.js');
+var teacher = require('./app/routes/teacher.js');
+var student = require('./app/routes/student.js');
 
 app.use('/', home);
+app.use('/teacher', teacher);
+app.use('/student', student);
 
 app.get('/db-users', function(req, res){
     dbUsers.find({}, function(err, data){
+        if(err){
+            return err;
+        }
+        res.json(data);
+    });
+});
+app.get('/db-teachers', function(req, res){
+    dbTeachers.find({}, function(err, data){
+        if(err){
+            return err;
+        }
+        res.json(data);
+    });
+});
+app.get('/db-students', function(req, res){
+    dbStudents.find({}, function(err, data){
         if(err){
             return err;
         }

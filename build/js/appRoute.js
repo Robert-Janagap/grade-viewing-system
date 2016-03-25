@@ -16,6 +16,7 @@ app.config(function($routeProvider){
 		})
 		.when('/student',{
 			templateUrl: 'views/student.html',
+			controller: 'studentCtrl',
 			resolve:{
 				logincheck: checkLogin
 			}
@@ -30,7 +31,8 @@ app.config(function($routeProvider){
 			templateUrl: 'views/teacherClass.html'
 		})
 		.when('/teacher/notifications',{
-			templateUrl: 'views/notifications.html'
+			templateUrl: 'views/notifications.html',
+			controller: 'teacherCtrl'
 		})
 		.when('/student/notifications',{
 			templateUrl: 'views/student_notifications.html'
@@ -110,3 +112,17 @@ app.controller('navCtrl', ['$scope', '$http', '$location', function($scope, $htt
 		});
 	}
 }]);
+
+// open sign up form
+app.directive('tabselect', function(){
+	return{
+		scope:{},
+		restrict:"E",
+		link: function(scope, element, attrs){
+		 	$('.content_view_tabs li').on('click', function(){
+		 		$(this).parent().children('li').removeClass('active');
+		 		$(this).addClass('active');
+		 	});
+		}
+	};
+});

@@ -399,11 +399,27 @@ footer{
         }
     }
     &_full{
-        width: 90%;
+    width: 90%;
     text-align: center;
     font-size: 18px;
     text-transform: uppercase;
-    
+    }
+    &_find{
+        position: absolute;
+        bottom: -37px;
+        left: 0;
+        width: 100%;
+        background: #4CAF50;
+        color: #fff;
+        text-align: center;
+        font-size: 1.1rem;
+        padding: 5px 0px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all .3s ease-in-out;
+        display: none;
+        z-index: 4;
     }
 }
 .close_btn{
@@ -558,4 +574,25 @@ footer{
 }
 .redBorder{
     border: 1px solid #f00 !important;
+}
+.text_blur{
+    color: #8E8E8E;
+}
+.findClass{
+    position: relative;
+    &_success{
+        margin-top: 40px;
+        padding: 12px 10px;
+        background: #009688;
+        color: #fff;
+        display: inline-block;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input:focus ~ .btn_find{
+        display: block;
+    }
+    .btn_find:hover{
+        display: block;
+    }
 }

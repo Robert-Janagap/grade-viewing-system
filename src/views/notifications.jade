@@ -36,32 +36,11 @@ html(lang="en")
                         input(type="number" max=50 min=20)
                 .btn.btn_full.btn_blue Create Class
         .container
-            .notifications.row
+            .notifications.row(ng-repeat="notification in notifications | orderBy:'-timeSend'")
                 .notifications_info.eight.columns
-                    h4.notifications_student Robert Janagap - 123-2312-321
-                    p.notifications_msg  Hello my name is Robert Janagap and I would like to join in your class - <strong>Algebra ( 13213123 )</strong>
-                    span.notifications_date 9:30 a.m, monday - 12/32/20
+                    h4.notifications_student {{notification.userName}} - {{notification.userId}}
+                    p.notifications_msg  {{notification.message}}
+                    span.notifications_date {{notification.dateSend}} at {{notification.timeSend}}
                 .notifications_btn.four.columns
-                    .btn.btn_large.btn_green Confirm
-                    .btn.btn_large.btn_red Delete
-            .notifications.row
-                .notifications_info.eight.columns
-                    h4.notifications_student Robert Janagap - 123-2312-321
-                    p.notifications_msg  Hello my name is Robert Janagap and I would like to join in your class - <strong>Algebra ( 13213123 )</strong>
-                    span.notifications_date 9:30 a.m, monday - 12/32/20
-                .notifications_btn.four.columns
-                    .btn.btn_large.btn_green Confirm
-                    .btn.btn_large.btn_red Delete
-            .notifications.row
-                .notifications_info.eight.columns
-                    h4.notifications_student Robert Janagap - 123-2312-321
-                    p.notifications_msg  Hello my name is Robert Janagap and I would like to join in your class - <strong>Algebra ( 13213123 )</strong>
-                    span.notifications_date 9:30 a.m, monday - 12/32/20
-                .notifications_btn.four.columns
-                    .btn.btn_large.btn_green Confirm
-                    .btn.btn_large.btn_red Delete
-            .notifications.row
-                .notifications_info.eight.columns
-                    h4.notifications_student Robert Janagap - 123-2312-321
-                    p.notifications_msg  This is a message for you master
-                    span.notifications_date 9:30 a.m, monday - 12/32/20
+                    .btn.btn_large.btn_green(ng-click="confirmRequest(notification)") Confirm
+                    .btn.btn_large.btn_red(ng-click="deleteRequest(notification)") Delete
