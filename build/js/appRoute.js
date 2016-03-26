@@ -126,3 +126,15 @@ app.directive('tabselect', function(){
 		}
 	};
 });
+// open sign up form
+app.directive('confirmation', function(){
+	return{
+		scope:{},
+		restrict:"E",
+		link: function(scope, element, attrs){
+		 	element.on('click', function(){
+		 		$('.confirmation').toggle();
+		 	});
+		}
+	};
+});

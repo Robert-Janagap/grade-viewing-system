@@ -33,31 +33,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="student_class_teacher">Robert JAangap
+            <tr ng-repeat="class in studentClasses">
+              <td class="student_class_teacher">{{class.teacherName}}
                 <div class="student_class_btns"><a href="" class="student_class_btn student_class_btn_util">Message</a><a href="" class="student_class_btn2 student_class_btn_util">archive</a></div>
               </td>
-              <td>Algebra 3-aaaaaaaaaaaaa</td>
-              <td>90%</td>
-              <td>90%</td>
-              <td>90%</td>
-              <td>90%</td>
-            </tr>
-            <tr>
-              <td class="student_class_teacher">Robert JAangap
-                <div class="student_class_btns"><a href="" class="student_class_btn student_class_btn_util">Message</a><a href="" class="student_class_btn2 student_class_btn_util">archive</a></div>
-              </td>
-              <td>Algebra 3-a</td>
-              <td>90%</td>
-              <td>90%</td>
-              <td>90%</td>
-              <td>90%</td>
-            </tr>
-            <tr>
-              <td class="student_class_teacher">Robert JAangap
-                <div class="student_class_btns"><a href="" class="student_class_btn student_class_btn_util">Message</a><a href="" class="student_class_btn2 student_class_btn_util">archive</a></div>
-              </td>
-              <td>Algebra 3-a</td>
+              <td>{{class.className}}</td>
               <td>90%</td>
               <td>90%</td>
               <td>90%</td>

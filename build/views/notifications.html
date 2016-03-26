@@ -42,10 +42,18 @@
         <div class="btn btn_full btn_blue">Create Class</div>
       </div>
     </div>
+    <div class="confirmation">
+      <div class="confirmation_inner u-cf">
+        <p> {{confirmation_msg}}</p>
+        <confirmation class="btn btn_blue pull_right">OK</confirmation>
+      </div>
+    </div>
     <div class="container">
       <div ng-repeat="notification in notifications | orderBy:'-timeSend'" class="notifications row">
         <div class="notifications_info eight columns">
-          <h4 class="notifications_student">{{notification.userName}} - {{notification.userId}}</h4>
+          <h4 class="notifications_student">{{notification.userName}} - {{notification.userId}}<a>
+              <confirmation ng-click="blockUser(notification)" class="btn_block">block user</confirmation></a><a>
+              <confirmation ng-click="unBlockUser(notification)" class="btn_block btn_block_2">Unblock user</confirmation></a></h4>
           <p class="notifications_msg"> {{notification.message}}</p><span class="notifications_date">{{notification.dateSend}} at {{notification.timeSend}}</span>
         </div>
         <div class="notifications_btn four columns">

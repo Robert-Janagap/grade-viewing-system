@@ -43,35 +43,61 @@ app.controller('studentCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 		var classInfo = {};
 		classInfo.timeSend = d.getHours() + ':' + d.getMinutes();
 
-		$http.get('/student/find-class/' + class_code).success(function(data){
-			if(data){
-				var d = document.getElementById('findClass_success');
-				d.className = "";
-				d.className = "findClass_success";
-				$scope.success_msg = "Your Request to join the class is now submitted, please inform or wait for the teacher to confirm your request.";
+			$http.get('/student/find-class/' + class_code).success(function(data){
 
-				classInfo.message = "Hello my name is " + $scope.studentName + " and I would like to join in your class -" + data.className + " " + "( " + data.classId + " )";
-				classInfo.dateSend = $scope.dateToday;	
-				classInfo.userName = $scope.studentName;	
-				classInfo.userId = $scope.studentId;	
-				classInfo.classId = data.classId;	
-				classInfo.className = data.className;	
-				classInfo.confirm = "not";	
-				classInfo.notification_id = data.className + '-' +Math.floor(Math.random()*1000 + 3000);	
+				if(data){ //checked if the class exist
+					$http.put('/student/if-enrolled/' + $scope.studentId, data).success(function(checked){
+						if(checked){ //checked if your already enrolled
+							$scope.success_msg = "Your already enrolled in this class, please get help or confirm it in your class teacher.";
+							var d = document.getElementById('findClass_success');
+							d.className = "errMsg2";
+						}else{
+							//data to be save in teacher notification
+							classInfo.message = "Hello my name is " + $scope.studentName + " and I would like to join in your class -" + data.className + " " + "( " + data.classId + " )";
+							classInfo.dateSend = $scope.dateToday;	
+							classInfo.userName = $scope.studentName;	
+							classInfo.userId = $scope.studentId;	
+							classInfo.classId = data.classId;	
+							classInfo.className = data.className;	
+							classInfo.confirm = "not";	
+							classInfo.notification_id = data.className + '-' +Math.floor(Math.random()*1000 + 3000);
 
-				$http.put('/student/send-request/' + data.teacherId, classInfo).success(function(data){
-				});
-				
-			}else{
-				$scope.success_msg = "We can\'t find in our database the said Class Id";
-				var d = document.getElementById('findClass_success');
-				d.className = "errMsg";
-			}
+							$http.put('/student/if-blocked/' + data.teacherId, classInfo).success(function(blocked){
+								console.log(blocked)
+								if(blocked){ // checked if your blocked by the teacher
+									$scope.success_msg = "You have been block by this class teacher, please inform to the teacher or confirm it.";
+									var d = document.getElementById('findClass_success');
+									d.className = "errMsg2";
+								}else{
+									var d = document.getElementById('findClass_success');
+									d.className = "";
+									d.className = "findClass_success";
+									$scope.success_msg = "Your Request to join the class is now submitted, please inform or wait for the teacher to confirm your request.";
 
-		})
+									$http.put('/student/send-request/' + data.teacherId, classInfo).success(function(data){
+									});
+									getStudentClass();
+								}
+							});
+						}
+					});	
+				}else{
+					$scope.success_msg = "We can\'t find in our database the said Class Id";
+					var d = document.getElementById('findClass_success');
+					d.className = "errMsg";
+				}
+
+			});
+
 
 	}
 	$scope.deleteMsg = function(){
 		$scope.findSuccess = false;
 	}
+	var getStudentClass = function(){
+		$http.get('/student/get-classes/' + $scope.studentId).success(function(data){
+			$scope.studentClasses = data;
+		});
+	}
+	getStudentClass();
 }]);

@@ -105,5 +105,15 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 		})
 		getNotifications($scope.teacherId);
 	}
+	$scope.blockUser = function(userId){
+		$http.put('/teacher/block-user/' + $scope.teacherId,userId).success(function(data){
+		});
+		$scope.confirmation_msg = userId.userName + " is successfully block!";
+	}
+	$scope.unBlockUser = function(userId){
+		$http.put('/teacher/unblock-user/' + $scope.teacherId,userId).success(function(data){
+		});
+		$scope.confirmation_msg = userId.userName + " is successfully unblock!";
+	}
 }]);
 

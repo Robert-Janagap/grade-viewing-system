@@ -32,32 +32,12 @@ html(lang="en")
                             th Final
                             th Average
                     tbody
-                        tr
-                            td.student_class_teacher Robert JAangap
+                        tr(ng-repeat = "class in studentClasses")
+                            td.student_class_teacher {{class.teacherName}}
                                 .student_class_btns
                                     a(href="").student_class_btn.student_class_btn_util Message
                                     a(href="").student_class_btn2.student_class_btn_util archive
-                            td Algebra 3-aaaaaaaaaaaaa
-                            td 90%
-                            td 90%
-                            td 90%
-                            td 90%
-                        tr
-                            td.student_class_teacher Robert JAangap
-                                .student_class_btns
-                                    a(href="").student_class_btn.student_class_btn_util Message
-                                    a(href="").student_class_btn2.student_class_btn_util archive
-                            td Algebra 3-a
-                            td 90%
-                            td 90%
-                            td 90%
-                            td 90%
-                        tr
-                            td.student_class_teacher Robert JAangap
-                                .student_class_btns
-                                    a(href="").student_class_btn.student_class_btn_util Message
-                                    a(href="").student_class_btn2.student_class_btn_util archive
-                            td Algebra 3-a
+                            td {{class.className}}
                             td 90%
                             td 90%
                             td 90%

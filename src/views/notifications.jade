@@ -35,10 +35,18 @@ html(lang="en")
                         label(for="") Final
                         input(type="number" max=50 min=20)
                 .btn.btn_full.btn_blue Create Class
+        .confirmation
+            .confirmation_inner.u-cf
+                p  {{confirmation_msg}}
+                confirmation.btn.btn_blue.pull_right OK
         .container
             .notifications.row(ng-repeat="notification in notifications | orderBy:'-timeSend'")
                 .notifications_info.eight.columns
                     h4.notifications_student {{notification.userName}} - {{notification.userId}}
+                        a
+                            confirmation.btn_block(ng-click="blockUser(notification)") block user
+                        a
+                            confirmation.btn_block.btn_block_2(ng-click="unBlockUser(notification)") Unblock user
                     p.notifications_msg  {{notification.message}}
                     span.notifications_date {{notification.dateSend}} at {{notification.timeSend}}
                 .notifications_btn.four.columns

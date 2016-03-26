@@ -54,4 +54,21 @@ router.put('/delete-notification/:id', function(req, res){
 		res.json(data);
 	});
 });
+
+router.put('/block-user/:id', function(req, res){
+	dbUsers.update({"userId": req.params.id},{$addToSet:{blockUsers:req.body.userId}}, function(err, data){
+		if(err){
+			return err;
+		}
+		res.json(data);
+	});
+});
+router.put('/unblock-user/:id', function(req, res){
+	dbUsers.update({"userId": req.params.id},{$pull:{blockUsers:req.body.userId}}, function(err, data){
+		if(err){
+			return err;
+		}
+		res.json(data);
+	});
+});
 module.exports = router;

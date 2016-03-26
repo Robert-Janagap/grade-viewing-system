@@ -19,7 +19,8 @@ var users = new mongoose.Schema({
 		className : String,
 		confirm: String,
 		notification_id: String
-	}
+	},
+	blockUsers:[]
 }, {collection: 'dbUsers'});
 
 module.exports = users;
