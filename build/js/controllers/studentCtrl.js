@@ -100,4 +100,27 @@ app.controller('studentCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 		});
 	}
 	getStudentClass();
+
+	var getStudentNotifications = function(studentId){
+		$http.get('/student/notifications/' + studentId).success(function(data){
+			$scope.notifications = data.notifications;
+			var unReadNotifications = 0;
+			var notifications = [];
+			for (var i = data.notifications.length - 1; i >= 0; i--) {
+				if(data.notifications[i].confirm === "not"){
+					notifications.push(data.notifications[i]);
+					unReadNotifications +=1;
+				}
+			}
+			$scope.unRead = unReadNotifications;
+			$scope.notificationsInfo = notifications;
+		})
+	}
+	getStudentNotifications($scope.studentId); //get notifications
+
+	$scope.readStudentNotification = function(){
+		$http.put('/student/update-notifications/' + $scope.studentId, $scope.notificationsInfo).success(function(data){
+		})
+		$scope.unRead = false;
+	}
 }]);

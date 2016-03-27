@@ -72,6 +72,7 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 	var getClassList = function(teacherId){
 		$http.get('/teacher/class-list/' + teacherId).success(function(data){
 			$scope.classList = data;
+			
 		})
 	}
 	getClassList($scope.teacherId); //get class list
@@ -79,6 +80,16 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 	var getNotifications = function(teacherId){
 		$http.get('/teacher/notifications/' + teacherId).success(function(data){
 			$scope.notifications = data.notifications;
+			var unReadNotifications = 0;
+			var notifications = [];
+			for (var i = data.notifications.length - 1; i >= 0; i--) {
+				if(data.notifications[i].confirm === "not"){
+					notifications.push(data.notifications[i]);
+					unReadNotifications +=1;
+				}
+			}
+			$scope.unRead = unReadNotifications;
+			$scope.notificationsInfo = notifications;
 		})
 	}
 	getNotifications($scope.teacherId); //get notifications
@@ -91,14 +102,31 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 		student.studentId = student.userId;
 		student.status = 'enrolled';
 
-		$http.put('/teacher/save-student/' + student.classId , student).success(function(data){
+		// $http.put('/teacher/save-student/' + student.classId , student).success(function(data){
+		// });
+		// $http.post('/teacher/save-student-class', student).success(function(data){
+		// });
+		// $http.put('/teacher/delete-notification/' + student.teacherId, student).success(function(data){
+		// })
+
+		var d = new Date();
+		var teacherRespond = {};
+		teacherRespond.message = student.userName + " welcome in my class " + student.className + " have a nice day.";
+		teacherRespond.notification_id = student.className + '-' +Math.floor(Math.random()*50000 + 80000);
+		teacherRespond.timeSend = d.getHours() + ':' + d.getMinutes();
+		teacherRespond.dateSend = $scope.dateToday;	
+		teacherRespond.userName = $scope.teacherName;	
+		teacherRespond.userId = $scope.teacherId;	
+		teacherRespond.classId = student.classId;	
+		teacherRespond.className = student.className;	
+		teacherRespond.confirm = "not";	
+
+		$http.put('/teacher/send-notification/'+ student.studentId,teacherRespond).success(function(data){
+			console.log(data);
 		});
-		$http.post('/teacher/save-student-class', student).success(function(data){
-		});
-		$http.put('/teacher/delete-notification/' + student.teacherId, student).success(function(data){
-		})
 
 		getNotifications($scope.teacherId);
+
 	}
 	$scope.deleteRequest = function(student){
 		$http.put('/teacher/delete-notification/' + $scope.teacherId, student).success(function(data){
@@ -114,6 +142,11 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 		$http.put('/teacher/unblock-user/' + $scope.teacherId,userId).success(function(data){
 		});
 		$scope.confirmation_msg = userId.userName + " is successfully unblock!";
+	}
+	$scope.readNotification = function(){
+		$http.put('/teacher/update-notifications/' + $scope.teacherId, $scope.notificationsInfo).success(function(data){
+		})
+		$scope.unRead = false;
 	}
 }]);
 

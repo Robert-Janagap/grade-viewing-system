@@ -10,8 +10,8 @@ html(lang="en")
                     li
                         input(type="text")
                     li
-                        a(href="#/student/notifications").notification Notifications
-                            span.notification_counter 32
+                        a(href="#/student/notifications" ng-click="readStudentNotification()").notification Notifications
+                            span(ng-show="unRead").notification_counter {{unRead}}
                     li
                         a(href="#/student/archive") Archive
                     li

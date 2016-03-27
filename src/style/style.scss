@@ -235,12 +235,14 @@ footer{
     position: relative;
     &_counter{
         position: absolute;
-        right: -22px;
+        right: -20px;
         top: -9px;
         background: #F44336;
-        padding: 2px 4px;
         font-size: 13px;
         border-radius: 45%;
+        width: 22px;
+        height: 19px;
+        text-align: center;
     }
 }
 
@@ -385,6 +387,9 @@ footer{
     cursor: pointer;
     transition: all .3s ease-in-out;
     text-transform: uppercase;
+    &:hover{
+        color: #fff;
+    }
     &_large{
         font-size: 18px;
         padding: 10px 22px;

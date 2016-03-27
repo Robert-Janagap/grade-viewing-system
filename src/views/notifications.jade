@@ -10,8 +10,8 @@ html(lang="en")
                     li
                         a(href="#/teacher/") Classes
                     li
-                        a(href="#/teacher/notifications").notification Notifications
-                            span.notification_counter 32
+                        a(href="#/teacher/notifications" ng-click="readNotification()").notification Notifications
+                            span(ng-show="unRead").notification_counter {{unRead}}
                     li
                         toggle-modal 
                             a(href="") Create Class

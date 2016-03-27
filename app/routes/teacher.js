@@ -71,4 +71,28 @@ router.put('/unblock-user/:id', function(req, res){
 		res.json(data);
 	});
 });
+router.put('/update-notifications/:id', function(req, res){
+
+	dbUsers.update({"userId":req.params.id},{$pull:{notifications:{confirm:"not"}}}, function(err, data){
+	});//delete notification unread
+	for (var i = req.body.length - 1; i >= 0; i--) { //add notification read
+	 	req.body[i].confirm = "read";
+		dbUsers.update({"userId":req.params.id},{$addToSet:{notifications:req.body[i]}}, function(err, data){
+		});
+	}
+});
+
+router.put('/send-notification/:id', function(req, res){
+
+	dbUsers.findOne({"userId": req.params.id}, function(err, data){
+		dbUsers.update({"userId": req.params.id},{$addToSet:{notifications:req.body}},function(err, data){
+			if(err){
+				return err;
+			}
+			res.json(data);
+		});
+	});
+	
+});
+
 module.exports = router;

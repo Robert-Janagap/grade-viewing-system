@@ -9,7 +9,7 @@
       <div class="container header_inner sub_pages_header">
         <ul ng-controller="navCtrl">
           <li><a href="#/teacher/">Classes</a></li>
-          <li><a href="#/teacher/notifications" class="notification">Notifications<span class="notification_counter">32</span></a></li>
+          <li><a href="#/teacher/notifications" ng-click="readNotification()" class="notification">Notifications<span ng-show="unRead" class="notification_counter">{{unRead}}</span></a></li>
           <li>
             <toggle-modal> <a href="">Create Class</a></toggle-modal>
           </li>

@@ -11,7 +11,7 @@
           <li>
             <input type="text"/>
           </li>
-          <li><a href="#/student/notifications" class="notification">Notifications<span class="notification_counter">32</span></a></li>
+          <li><a href="#/student/notifications" ng-click="readStudentNotification()" class="notification">Notifications<span ng-show="unRead" class="notification_counter">{{unRead}}</span></a></li>
           <li><a href="#/student/archive">Archive</a></li>
           <li><a href="#/student">Classes</a></li>
           <li><a href="" ng-click="logOut()">Log-out</a></li>
