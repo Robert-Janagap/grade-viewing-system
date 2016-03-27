@@ -8,8 +8,8 @@
     <header>
       <div class="container header_inner sub_pages_header">
         <ul ng-controller="navCtrl">
-          <li>
-            <input type="text"/>
+          <li class="findClass">
+            <input type="text" ng-model="class_code"/><span ng-click="findClass(class_code)" class="btn_find">Join Class</span>
           </li>
           <li><a href="#/student/notifications" ng-click="readStudentNotification()" class="notification">Notifications<span ng-show="unRead" class="notification_counter">{{unRead}}</span></a></li>
           <li><a href="#/student/archive">Archive</a></li>
@@ -19,6 +19,7 @@
       </div>
     </header>
     <div class="container">
+      <p ng-show="findSuccess" ng-click="deleteMsg()" id="findClass_success" class="findClass_success">{{success_msg}}</p>
       <div ng-repeat="notification in notifications | orderBy:'-timeSend'" class="notifications row">
         <div class="notifications_info eight columns">
           <h4 class="notifications_student">{{notification.userName}} - {{notification.userId}}<a>

@@ -10,8 +10,8 @@ html(lang="en")
                     li
                         a(href="#/teacher/") Classes
                     li
-                        a(href="#/teacher/notifications").notification Notifications
-                            span.notification_counter 32
+                        a(href="#/teacher/notifications" ng-click="readNotification()").notification Notifications
+                            span(ng-show="unRead").notification_counter {{unRead}}
                     li
                         toggle-modal 
                             a(href="") Create Class
@@ -37,36 +37,38 @@ html(lang="en")
                 .btn.btn_full.btn_blue Create Class
         .container
             .teacher_class
-                h3.teacher_class_title Science ( Class Code )
+                h3.teacher_class_title {{teacherClass}} ( {{teacherClassId}} )
                 table
                     thead
                         tr.no-border
                             th Students
                             th Prelim
-                                span  ( 30% )
+                                span  ( {{studentList.cPrelim}}% )
                             th Midterm
-                                span  ( 30% )
+                                span  ( {{studentList.cMidterm}}% )
                             th Final
-                                span  ( 30% )
+                                span  ( {{studentList.cFinal}}% )
                             th Average
                     tbody
+                        tr(ng-repeat="students in studentList.students | orderBy: 'studentName'")
+                            td {{students.studentName}}
+                            td 
+                                einput
+                                    input(type="text" class="inputGrade" ng-blur="savePrelim(students)" ng-model="students.prelim")
+                            td 
+                                einput
+                                    input(type="text" class="inputGrade" ng-blur="saveGrade(students)" ng-model="students.midterm")
+                            td 
+                                einput
+                                    input(type="text" class="inputGrade" ng-blur="saveGrade(students)" ng-model="students.final")
+                            td 
+                                span {{students.average}}%
                         tr
-                            td 1. Juan De la Cruz Santillan Magbanua
-                            td 
-                                input(type="text" value=0)
-                            td 
-                                input(type="text" value=10)
-                            td 
-                                input(type="text" value=10)
-                            td 
-                                span 90%
-                        tr
-                            td 2. Juan De la Cruz
-                            td 
-                                input(type="text" value=0)
-                            td 
-                                input(type="text" value=10)
-                            td 
-                                input(type="text" value=10)
-                            td 
-                                span 90%
+                            td
+                            td
+                                .btn.btn_blue Save
+                            td
+                                .btn.btn_blue Save
+                            td
+                                .btn.btn_blue Save
+                            td

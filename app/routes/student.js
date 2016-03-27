@@ -77,7 +77,7 @@ module.exports = router;
 // db.dbUsers.update({"userId": "aa-2408972"}, {$pull:{blockUsers:"student-2881327"}})
 // db.dbUsers.update({"userId": "aa-2408972"}, {$pull:{notifications:{"student-2881327"}}})
 // db.dbStudents.remove({"studentId": "student-2881327"})
-// db.dbStudents.remove({"studentId": "student-2881327"})
+// db.dbStudents.remove({"status": "enrolled"})
 // db.dbUsers.find({"notifications.notification_id": "Science 1-A-3669"}).pretty()
 // db.dbUsers.update({"userId":"aa-2408972", "notifications.notification_id": "Science 1-A-3669"},{$set:{"notifications.$.confirm":"not"}}).pretty()
 // db.dbUsers.update({"userId": "aa-2408972"}, {$unset:{notifications:1}})

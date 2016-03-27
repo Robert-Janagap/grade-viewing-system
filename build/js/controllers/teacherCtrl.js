@@ -1,6 +1,11 @@
 app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$routeParams', function($scope, $http, $location, $rootScope, $routeParams){
-	$scope.teacherName = 'Robert Janagap';
-	$scope.teacherId = 'aa-2408972';
+	//dynamic
+	$scope.teacherId = $rootScope.currentUser.userId;
+	$scope.teacherName = $rootScope.currentUser.name;
+	//static
+	// $scope.teacherName = 'Robert Janagap';
+	// $scope.teacherId = 'aa-2408972';
+
 	dateToday();
 	dayToday();
 	function dateToday(){
@@ -60,7 +65,6 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 		 	class_info.dateCreated = $scope.dateToday;
 
 		 	$http.post('/teacher/save-class', class_info).success(function(data){
-		 		console.log(data);
 		 	});
 		 	getClassList($scope.teacherId);
 
@@ -72,7 +76,6 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 	var getClassList = function(teacherId){
 		$http.get('/teacher/class-list/' + teacherId).success(function(data){
 			$scope.classList = data;
-			
 		})
 	}
 	getClassList($scope.teacherId); //get class list
@@ -102,12 +105,12 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 		student.studentId = student.userId;
 		student.status = 'enrolled';
 
-		// $http.put('/teacher/save-student/' + student.classId , student).success(function(data){
-		// });
-		// $http.post('/teacher/save-student-class', student).success(function(data){
-		// });
-		// $http.put('/teacher/delete-notification/' + student.teacherId, student).success(function(data){
-		// })
+		$http.put('/teacher/save-student/' + student.classId , student).success(function(data){
+		});
+		$http.post('/teacher/save-student-class', student).success(function(data){
+		});
+		$http.put('/teacher/delete-notification/' + student.teacherId, student).success(function(data){
+		})
 
 		var d = new Date();
 		var teacherRespond = {};
@@ -122,7 +125,6 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 		teacherRespond.confirm = "not";	
 
 		$http.put('/teacher/send-notification/'+ student.studentId,teacherRespond).success(function(data){
-			console.log(data);
 		});
 
 		getNotifications($scope.teacherId);
@@ -147,6 +149,18 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 		$http.put('/teacher/update-notifications/' + $scope.teacherId, $scope.notificationsInfo).success(function(data){
 		})
 		$scope.unRead = false;
+	}
+	$scope.viewStudentList = function(studentList){
+		$rootScope.studentList = studentList;
+		$rootScope.teacherClass = studentList.className
+		$rootScope.teacherClassId = studentList.classId;
+	}
+
+	$scope.savePrelim = function(grade){
+		grade.teacherId = $scope.teacherId;
+		grade.classId = $rootScope.teacherClassId;
+		$http.put('/teacher/student-grade-prelim/' + grade.studentId, grade).success(function(data){
+		});
 	}
 }]);
 

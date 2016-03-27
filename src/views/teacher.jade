@@ -45,7 +45,7 @@ html(lang="en")
         .container
             .classList.u-cf
                 ul.u-cf
-                    a(href="#/teacher/class" ng-repeat = "classes in classList")
+                    a(href="#/teacher/class" ng-repeat = "classes in classList" ng-click="viewStudentList(classes)")
                         li.mfour.class
                             .class_info
                                 .class_util.u-cf

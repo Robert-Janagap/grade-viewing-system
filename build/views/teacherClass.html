@@ -9,7 +9,7 @@
       <div class="container header_inner sub_pages_header">
         <ul ng-controller="navCtrl">
           <li><a href="#/teacher/">Classes</a></li>
-          <li><a href="#/teacher/notifications" class="notification">Notifications<span class="notification_counter">32</span></a></li>
+          <li><a href="#/teacher/notifications" ng-click="readNotification()" class="notification">Notifications<span ng-show="unRead" class="notification_counter">{{unRead}}</span></a></li>
           <li>
             <toggle-modal> <a href="">Create Class</a></toggle-modal>
           </li>
@@ -44,43 +44,49 @@
     </div>
     <div class="container">
       <div class="teacher_class">
-        <h3 class="teacher_class_title">Science ( Class Code )</h3>
+        <h3 class="teacher_class_title">{{teacherClass}} ( {{teacherClassId}} )</h3>
         <table>
           <thead>
             <tr class="no-border">
               <th>Students</th>
-              <th>Prelim<span> ( 30% )</span></th>
-              <th>Midterm<span> ( 30% )</span></th>
-              <th>Final<span> ( 30% )</span></th>
+              <th>Prelim<span> ( {{studentList.cPrelim}}% )</span></th>
+              <th>Midterm<span> ( {{studentList.cMidterm}}% )</span></th>
+              <th>Final<span> ( {{studentList.cFinal}}% )</span></th>
               <th>Average</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1. Juan De la Cruz Santillan Magbanua</td>
+            <tr ng-repeat="students in studentList.students | orderBy: 'studentName'">
+              <td>{{students.studentName}}</td>
               <td> 
-                <input type="text" value="0"/>
+                <einput>
+                  <input type="text" ng-blur="savePrelim(students)" ng-model="students.prelim" class="inputGrade"/>
+                </einput>
               </td>
               <td> 
-                <input type="text" value="10"/>
+                <einput>
+                  <input type="text" ng-blur="saveGrade(students)" ng-model="students.midterm" class="inputGrade"/>
+                </einput>
               </td>
               <td> 
-                <input type="text" value="10"/>
+                <einput>
+                  <input type="text" ng-blur="saveGrade(students)" ng-model="students.final" class="inputGrade"/>
+                </einput>
               </td>
-              <td> <span>90%</span></td>
+              <td> <span>{{students.average}}%</span></td>
             </tr>
             <tr>
-              <td>2. Juan De la Cruz</td>
-              <td> 
-                <input type="text" value="0"/>
+              <td></td>
+              <td>
+                <div class="btn btn_blue">Save</div>
               </td>
-              <td> 
-                <input type="text" value="10"/>
+              <td>
+                <div class="btn btn_blue">Save</div>
               </td>
-              <td> 
-                <input type="text" value="10"/>
+              <td>
+                <div class="btn btn_blue">Save</div>
               </td>
-              <td> <span>90%</span></td>
+              <td></td>
             </tr>
           </tbody>
         </table>

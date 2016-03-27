@@ -1,6 +1,12 @@
 app.controller('studentCtrl', ['$scope', '$http', '$location','$rootScope','$routeParams', function($scope, $http, $location, $rootScope, $routeParams){
-	$scope.studentName = 'rhoi abello';
-	$scope.studentId = 'student-2881327';
+	//dynamic
+	$scope.studentId = $rootScope.currentUser.userId;
+	$scope.studentName = $rootScope.currentUser.name;
+
+	//static
+	// $scope.studentName = 'rhoi abello';
+	// $scope.studentId = 'student-2881327';
+	
 	dateToday();
 	dayToday();
 	function dateToday(){

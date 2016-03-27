@@ -28,19 +28,32 @@ app.config(function($routeProvider){
 			}
 		})
 		.when('/teacher/class',{
-			templateUrl: 'views/teacherClass.html'
+			templateUrl: 'views/teacherClass.html',
+			controller: 'teacherCtrl',
+			resolve:{
+				logincheck: checkLogin
+			}
 		})
 		.when('/teacher/notifications',{
 			templateUrl: 'views/notifications.html',
-			controller: 'teacherCtrl'
+			controller: 'teacherCtrl',
+			resolve:{
+				logincheck: checkLogin
+			}
 		})
 		.when('/student/notifications',{
 			templateUrl: 'views/student_notifications.html',
-			controller: 'studentCtrl'
+			controller: 'studentCtrl',
+			resolve:{
+				logincheck: checkLogin
+			}
 		})
 		.when('/student/archive',{
 			templateUrl: 'views/archive.html',
-			controller: 'studentCtrl'
+			controller: 'studentCtrl',
+			resolve:{
+				logincheck: checkLogin
+			}
 		})
 		.when('/administrator/summary',{
 			templateUrl: 'views/administrator_summary.html'
@@ -137,6 +150,34 @@ app.directive('confirmation', function(){
 		 	element.on('click', function(){
 		 		$('.confirmation').toggle();
 		 	});
+		}
+	};
+});
+// input elemet
+app.directive('einput', function(){
+	return{
+		scope:{},
+		restrict:"E",
+		link: function(scope, element, attrs){
+			var inputGrade = $('.inputGrade');
+
+		 	inputGrade.keypress(function(key) {
+		        if(key.charCode < 48 || key.charCode > 57) return false;
+		    });
+
+		    inputGrade.on( 'keydown',function ( event ){
+				if($(this).val() > 100){
+					$(this).val(null); 
+				}
+
+		    } );
+
+		    inputGrade.on( 'keyup',function ( event ){
+				if($(this).val() > 100){
+					$(this).val(null); 
+				}
+		    } );
+
 		}
 	};
 });

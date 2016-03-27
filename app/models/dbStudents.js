@@ -13,6 +13,7 @@ var studentClass = new mongoose.Schema({
 	prelim: Number,
 	midterm: Number,
 	final: Number,
+	average: Number,
 	status: String
 }, {collection: 'dbStudents'});
 

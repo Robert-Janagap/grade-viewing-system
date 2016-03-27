@@ -17,7 +17,8 @@ var teacherClass = new mongoose.Schema({
 		studentId: String,
 		prelim: Number,
 		midterm: Number,
-		final: Number
+		final: Number,
+		average: Number
 	}
 }, {collection: 'dbTeachers'});
 
