@@ -96,7 +96,7 @@ router.put('/send-notification/:id', function(req, res){
 });
 
 router.put('/student-grade-prelim/:id', function(req, res){
-	console.log(req.body);
+
 	dbTeachers.update({"teacherId":req.body.teacherId, "classId":req.body.classId},{$pull:{students:{studentId:req.params.id}}}, function(err, data){
 	});//delete old data
 
@@ -106,11 +106,38 @@ router.put('/student-grade-prelim/:id', function(req, res){
 				return err;
 			}
 			res.json(data);	
-		});//replace it with updated date
-	});// update student grade
+		});//replace it with updated grade
+	});
+});
 
+router.put('/student-grade-midterm/:id', function(req, res){
 
+	dbTeachers.update({"teacherId":req.body.teacherId, "classId":req.body.classId},{$pull:{students:{studentId:req.params.id}}}, function(err, data){
+	});//delete old data
 
+	dbStudents.update({"studentId": req.params.id},{$set:{"midterm": req.body.prelim}}, function(err, data){
+		dbTeachers.update({"teacherId":req.body.teacherId, "classId":req.body.classId},{$push:{students:req.body}}, function(err, data){
+			if(err){
+				return err;
+			}
+			res.json(data);	
+		});//replace it with updated grade
+	});//student grade update
+});
+
+router.put('/student-grade-final/:id', function(req, res){
+
+	dbTeachers.update({"teacherId":req.body.teacherId, "classId":req.body.classId},{$pull:{students:{studentId:req.params.id}}}, function(err, data){
+	});//delete old data
+
+	dbStudents.update({"studentId": req.params.id},{$set:{"final": req.body.prelim}}, function(err, data){
+		dbTeachers.update({"teacherId":req.body.teacherId, "classId":req.body.classId},{$push:{students:req.body}}, function(err, data){
+			if(err){
+				return err;
+			}
+			res.json(data);	
+		});//replace it with updated grade
+	});//student grade update
 });
 
 

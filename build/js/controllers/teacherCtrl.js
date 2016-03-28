@@ -159,8 +159,28 @@ app.controller('teacherCtrl', ['$scope', '$http', '$location','$rootScope','$rou
 	$scope.savePrelim = function(grade){
 		grade.teacherId = $scope.teacherId;
 		grade.classId = $rootScope.teacherClassId;
+		grade.average = parseInt((grade.prelim * .20).toFixed(2)) + parseInt((grade.midterm * .20).toFixed(2)) + parseInt((grade.final * .60).toFixed(2));
 		$http.put('/teacher/student-grade-prelim/' + grade.studentId, grade).success(function(data){
 		});
 	}
+
+	$scope.saveMidterm = function(grade){
+		grade.teacherId = $scope.teacherId;
+		grade.classId = $rootScope.teacherClassId;
+		grade.average = parseInt((grade.prelim * .20).toFixed(2)) + parseInt((grade.midterm * .20).toFixed(2)) + parseInt((grade.final * .60).toFixed(2));
+		$http.put('/teacher/student-grade-midterm/' + grade.studentId, grade).success(function(data){
+		});
+	}
+
+	$scope.saveFinal = function(grade){
+		grade.teacherId = $scope.teacherId;
+		grade.classId = $rootScope.teacherClassId;
+		grade.average = parseInt((grade.prelim * .20).toFixed(2)) + parseInt((grade.midterm * .20).toFixed(2)) + parseInt((grade.final * .60).toFixed(2));
+		$http.put('/teacher/student-grade-final/' + grade.studentId, grade).success(function(data){
+		});
+	}
+
+
+
 }]);
 

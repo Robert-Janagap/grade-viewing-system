@@ -57,18 +57,9 @@ html(lang="en")
                                     input(type="text" class="inputGrade" ng-blur="savePrelim(students)" ng-model="students.prelim")
                             td 
                                 einput
-                                    input(type="text" class="inputGrade" ng-blur="saveGrade(students)" ng-model="students.midterm")
+                                    input(type="text" class="inputGrade" ng-blur="saveMidterm(students)" ng-model="students.midterm")
                             td 
                                 einput
-                                    input(type="text" class="inputGrade" ng-blur="saveGrade(students)" ng-model="students.final")
+                                    input(type="text" class="inputGrade" ng-blur="saveFinal(students)" ng-model="students.final")
                             td 
                                 span {{students.average}}%
-                        tr
-                            td
-                            td
-                                .btn.btn_blue Save
-                            td
-                                .btn.btn_blue Save
-                            td
-                                .btn.btn_blue Save
-                            td

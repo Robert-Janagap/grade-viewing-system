@@ -65,28 +65,15 @@
               </td>
               <td> 
                 <einput>
-                  <input type="text" ng-blur="saveGrade(students)" ng-model="students.midterm" class="inputGrade"/>
+                  <input type="text" ng-blur="saveMidterm(students)" ng-model="students.midterm" class="inputGrade"/>
                 </einput>
               </td>
               <td> 
                 <einput>
-                  <input type="text" ng-blur="saveGrade(students)" ng-model="students.final" class="inputGrade"/>
+                  <input type="text" ng-blur="saveFinal(students)" ng-model="students.final" class="inputGrade"/>
                 </einput>
               </td>
               <td> <span>{{students.average}}%</span></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>
-                <div class="btn btn_blue">Save</div>
-              </td>
-              <td>
-                <div class="btn btn_blue">Save</div>
-              </td>
-              <td>
-                <div class="btn btn_blue">Save</div>
-              </td>
-              <td></td>
             </tr>
           </tbody>
         </table>
